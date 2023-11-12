@@ -15,4 +15,4 @@ The design is made in Vivado 2023.1 for Arty A7-35.
 
 
 
-![](ArtyA7_MicroBlaze_demo_hw\block_design.png)
+![](ArtyA7_MicroBlaze_demo_hw/block_design.png)
