@@ -3,10 +3,10 @@
 # SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
 # IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
 # SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
-# Start of session at: Sun Nov 12 17:41:02 2023
-# Process ID: 34780
+# Start of session at: Sun Nov 12 17:12:47 2023
+# Process ID: 27092
 # Current directory: c:/GitHub/ArtyA7-MicroBlaze-demo/ArtyA7_MicroBlaze_demo_hw
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent23168 C:\GitHub\ArtyA7-MicroBlaze-demo\ArtyA7_MicroBlaze_demo_hw\ArtyA7_MicroBlaze_demo_hw.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent19840 C:\GitHub\ArtyA7-MicroBlaze-demo\ArtyA7_MicroBlaze_demo_hw\ArtyA7_MicroBlaze_demo_hw.xpr
 # Log file: c:/GitHub/ArtyA7-MicroBlaze-demo/ArtyA7_MicroBlaze_demo_hw/vivado.log
 # Journal file: c:/GitHub/ArtyA7-MicroBlaze-demo/ArtyA7_MicroBlaze_demo_hw\vivado.jou
 # Running On: Viktor-PC, OS: Windows, CPU Frequency: 3187 MHz, CPU Physical cores: 24, Host memory: 34109 MB
@@ -14,3 +14,5 @@
 start_gui
 open_project C:/GitHub/ArtyA7-MicroBlaze-demo/ArtyA7_MicroBlaze_demo_hw/ArtyA7_MicroBlaze_demo_hw.xpr
 update_compile_order -fileset sources_1
+open_bd_design {C:/GitHub/ArtyA7-MicroBlaze-demo/ArtyA7_MicroBlaze_demo_hw/ArtyA7_MicroBlaze_demo_hw.srcs/sources_1/bd/system/system.bd}
+reset_project
