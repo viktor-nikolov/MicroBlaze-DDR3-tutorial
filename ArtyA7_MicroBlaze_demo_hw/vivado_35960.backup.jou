@@ -1,0 +1,32 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Sun Nov 12 16:53:12 2023
+# Process ID: 35960
+# Current directory: c:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7980 C:\MicroZed_projects\ArtyA7_MicroBlaze_demo\ArtyA7_MicroBlaze_demo_hw\ArtyA7_MicroBlaze_demo_hw.xpr
+# Log file: c:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/vivado.log
+# Journal file: c:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw\vivado.jou
+# Running On: Viktor-PC, OS: Windows, CPU Frequency: 3187 MHz, CPU Physical cores: 24, Host memory: 34109 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/ArtyA7_MicroBlaze_demo_hw.xpr
+open_bd_design {C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/ArtyA7_MicroBlaze_demo_hw.srcs/sources_1/bd/system/system.bd}
+update_compile_order -fileset sources_1
+launch_runs impl_1 -to_step write_bitstream -jobs 16
+wait_on_run impl_1
+write_hw_platform -fixed -include_bit -force -file C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/system_wrapper.xsa
+open_hw_manager
+connect_hw_server -allow_non_jtag
+open_hw_target
+set_property PROGRAM.FILE {C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/ArtyA7_MicroBlaze_demo_hw.runs/impl_1/system_wrapper.bit} [get_hw_devices xc7a35t_0]
+current_hw_device [get_hw_devices xc7a35t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a35t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a35t_0]
+set_property PROGRAM.FILE {C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/ArtyA7_MicroBlaze_demo_hw.runs/impl_1/system_wrapper.bit} [get_hw_devices xc7a35t_0]
+program_hw_devices [get_hw_devices xc7a35t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a35t_0] 0]
+close_hw_manager

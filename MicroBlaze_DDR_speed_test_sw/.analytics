@@ -1,0 +1,40 @@
+timestamp=[2023-11-12 15:52:54], mode=WORKBENCH_START, duration=0:00:17.058, duration_ms=17058, data={}
+timestamp=[2023-11-12 15:52:54], mode=WORKBENCH_UI_INIT, duration=0:00:00.009, duration_ms=9, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
+timestamp=[2023-11-12 15:52:55], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.672, duration_ms=672, data={}
+timestamp=[2023-11-12 15:53:19], mode=PLATFORM_CREATION, duration=0:00:01.476, duration_ms=1476, data={platform_source=dsa, os=standalone, processor=microblaze, platform=null}
+timestamp=[2023-11-12 15:53:47], mode=APP_CREATION, duration=0:00:00.713, duration_ms=713, data={name=DDR_speed_test, project_type=sdk, os=standalone, processor=microblaze_0, runtime=C/C++, platform=system, application_type=application}
+timestamp=[2023-11-12 15:55:04], mode=PLATFORM_GENERATION, duration=0:00:02.461, duration_ms=2461, data={name=system}
+timestamp=[2023-11-12 16:16:27], mode=BUILD, duration=0:00:00.497, duration_ms=497, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:18:28], mode=BUILD, duration=0:00:00.407, duration_ms=407, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:18:29], mode=BUILD, duration=0:00:00.096, duration_ms=96, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:19:40], mode=BUILD, duration=0:00:00.415, duration_ms=415, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:19:40], mode=BUILD, duration=0:00:00.096, duration_ms=96, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:20:07], mode=BUILD, duration=0:00:00.467, duration_ms=467, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:20:07], mode=BUILD, duration=0:00:00.100, duration_ms=100, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:21:27], mode=BUILD, duration=0:00:00.473, duration_ms=473, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:21:28], mode=BUILD, duration=0:00:00.096, duration_ms=96, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:22:11], mode=BUILD, duration=0:00:00.396, duration_ms=396, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:22:11], mode=BUILD, duration=0:00:00.096, duration_ms=96, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 16:55:15], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.728, duration_ms=728, data={}
+timestamp=[2023-11-12 16:55:16], mode=WORKBENCH_START, duration=0:00:06.457, duration_ms=6457, data={}
+timestamp=[2023-11-12 16:55:16], mode=WORKBENCH_UI_INIT, duration=0:00:00.191, duration_ms=191, data={editors_count=4, platform_editors_count=1, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=DDR_speed_test,DDR_speed_test_system,RemoteSystemsTempFiles,system}
+timestamp=[2023-11-12 17:00:45], mode=BUILD, duration=0:00:00.129, duration_ms=129, data={name=DDR_speed_test, configuration=Release, clean_build=true}
+timestamp=[2023-11-12 17:00:46], mode=BUILD, duration=0:00:00.089, duration_ms=89, data={name=DDR_speed_test_system, configuration=Release, clean_build=true}
+timestamp=[2023-11-12 17:00:48], mode=PLATFORM_GENERATION, duration=0:00:02.012, duration_ms=2012, data={name=system}
+timestamp=[2023-11-12 17:00:50], mode=PLATFORM_GENERATION, duration=0:00:02.803, duration_ms=2803, data={name=system}
+timestamp=[2023-11-12 17:00:51], mode=BUILD, duration=0:00:00.082, duration_ms=82, data={name=DDR_speed_test, configuration=Release, clean_build=true}
+timestamp=[2023-11-12 17:00:51], mode=BUILD, duration=0:00:00.398, duration_ms=398, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:00:52], mode=BUILD, duration=0:00:00.092, duration_ms=92, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:01:01], mode=BUILD, duration=0:00:00.085, duration_ms=85, data={name=DDR_speed_test, configuration=Release, clean_build=true}
+timestamp=[2023-11-12 17:01:02], mode=BUILD, duration=0:00:00.338, duration_ms=338, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:01:02], mode=BUILD, duration=0:00:00.081, duration_ms=81, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:03:49], mode=BUILD, duration=0:00:00.347, duration_ms=347, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:03:49], mode=BUILD, duration=0:00:00.082, duration_ms=82, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:04:38], mode=BUILD, duration=0:00:00.408, duration_ms=408, data={name=DDR_speed_test, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:04:38], mode=BUILD, duration=0:00:00.083, duration_ms=83, data={name=DDR_speed_test_system, configuration=Release, clean_build=false}
+timestamp=[2023-11-12 17:17:22], mode=WORKBENCH_START, duration=0:00:02.824, duration_ms=2824, data={}
+timestamp=[2023-11-12 17:17:22], mode=WORKBENCH_UI_INIT, duration=0:00:00.419, duration_ms=419, data={editors_count=4, platform_editors_count=1, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=DDR_speed_test,DDR_speed_test_system,RemoteSystemsTempFiles,system}
+timestamp=[2023-11-12 17:17:23], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.654, duration_ms=654, data={}
+timestamp=[2023-11-12 17:17:36], mode=BUILD, duration=0:00:00.124, duration_ms=124, data={name=DDR_speed_test, configuration=Release, clean_build=true}
+timestamp=[2023-11-12 17:17:36], mode=BUILD, duration=0:00:00.089, duration_ms=89, data={name=DDR_speed_test_system, configuration=Release, clean_build=true}
+timestamp=[2023-11-12 17:17:38], mode=PLATFORM_GENERATION, duration=0:00:01.632, duration_ms=1632, data={name=system}

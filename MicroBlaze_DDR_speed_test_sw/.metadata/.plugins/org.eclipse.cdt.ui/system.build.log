@@ -1,0 +1,20 @@
+17:17:36 **** Clean-only build of project system ****
+buildplatform.bat 56663 system clean 
+XSDB Server Channel: tcfchan#1
+Reading the platform  : "system"
+Cleaning the BSP for domain  - standalone_domain
+make -C microblaze_0/libsrc/bram_v4_8/src -s clean 
+
+make -C microblaze_0/libsrc/cpu_v2_17/src -s clean 
+
+make -C microblaze_0/libsrc/gpio_v4_9/src -s clean 
+
+make -C microblaze_0/libsrc/standalone_v8_1/src -s clean 
+
+make -C microblaze_0/libsrc/uartlite_v3_8/src -s clean 
+
+rm -f microblaze_0/lib/libxil.a
+
+
+17:17:38 Build Finished (took 1s.594ms)
+

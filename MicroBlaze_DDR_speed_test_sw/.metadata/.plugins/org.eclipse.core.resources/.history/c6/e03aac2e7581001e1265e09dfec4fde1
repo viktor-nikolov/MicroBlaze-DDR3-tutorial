@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="DDR_speed_test" location="C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/MicroBlaze_DDR_speed_test_sw/DDR_speed_test" platform="C:/MicroZed_projects/ArtyA7_MicroBlaze_demo/MicroBlaze_DDR_speed_test_sw/system/export/system/system.xpfm" platformUID="xilinx:arty-a7-35::0.0(custom)" systemProject="DDR_speed_test_system" sysConfig="system" runtime="C/C++" cpu="standalone_domain" cpuInstance="microblaze_0" os="standalone" language="CPP" mssSignature="341f73c639fb2cdbc8d71395ac24c8fa">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.1380494134" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.458585380">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>

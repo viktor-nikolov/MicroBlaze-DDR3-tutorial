@@ -1,0 +1,20 @@
+2023-11-12T17:17:36.971357400255-17:17:36 **** Clean-only build of project system ****
+000-buildplatform.bat 56663 system clean 
+000-XSDB Server Channel: tcfchan#1
+000-Reading the platform  : "system"
+000-Cleaning the BSP for domain  - standalone_domain
+000-make -C microblaze_0/libsrc/bram_v4_8/src -s clean 
+000-
+000-make -C microblaze_0/libsrc/cpu_v2_17/src -s clean 
+000-
+000-make -C microblaze_0/libsrc/gpio_v4_9/src -s clean 
+000-
+000-make -C microblaze_0/libsrc/standalone_v8_1/src -s clean 
+000-
+000-make -C microblaze_0/libsrc/uartlite_v3_8/src -s clean 
+000-
+000-rm -f microblaze_0/lib/libxil.a
+000-
+00255-
+17:17:38 Build Finished (took 1s.594ms)
+

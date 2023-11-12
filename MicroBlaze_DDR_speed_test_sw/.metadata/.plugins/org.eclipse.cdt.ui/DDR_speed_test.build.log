@@ -1,0 +1,7 @@
+17:17:36 **** Clean-only build of configuration Release for project DDR_speed_test ****
+make clean 
+rm -rf  ./src/main.o  ./src/main.d  DDR_speed_test.elf.size  DDR_speed_test.elf
+' '
+
+17:17:36 Build Finished (took 106ms)
+

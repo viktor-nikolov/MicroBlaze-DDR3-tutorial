@@ -1,0 +1,362 @@
+{
+  "schema": "xilinx.com:schema:json_instance:1.0",
+  "ip_inst": {
+    "xci_name": "system_axi_uartlite_0_0",
+    "cell_name": "axi_uartlite_0",
+    "component_reference": "xilinx.com:ip:axi_uartlite:2.0",
+    "ip_revision": "32",
+    "gen_directory": "../../../../../../ArtyA7_MicroBlaze_demo_hw.gen/sources_1/bd/system/ip/system_axi_uartlite_0_0",
+    "parameters": {
+      "component_parameters": {
+        "C_DATA_BITS": [ { "value": "8", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_BAUDRATE": [ { "value": "9600", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_S_AXI_ACLK_FREQ_HZ": [ { "value": "200000000", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_S_AXI_ACLK_FREQ_HZ_d": [ { "value": "200.0", "value_src": "propagated", "value_permission": "bd_and_user", "resolve_type": "user", "format": "float", "usage": "all" } ],
+        "Component_Name": [ { "value": "system_axi_uartlite_0_0", "resolve_type": "user", "usage": "all" } ],
+        "PARITY": [ { "value": "No_Parity", "resolve_type": "user", "usage": "all" } ],
+        "C_USE_PARITY": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_ODD_PARITY": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "USE_BOARD_FLOW": [ { "value": "true", "value_src": "user", "resolve_type": "user", "format": "bool", "usage": "all" } ],
+        "UARTLITE_BOARD_INTERFACE": [ { "value": "usb_uart", "value_src": "user", "resolve_type": "user", "usage": "all" } ]
+      },
+      "model_parameters": {
+        "C_FAMILY": [ { "value": "artix7", "resolve_type": "generated", "usage": "all" } ],
+        "C_S_AXI_ACLK_FREQ_HZ": [ { "value": "200000000", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_S_AXI_ADDR_WIDTH": [ { "value": "4", "format": "long", "usage": "all" } ],
+        "C_S_AXI_DATA_WIDTH": [ { "value": "32", "format": "long", "usage": "all" } ],
+        "C_BAUDRATE": [ { "value": "9600", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_DATA_BITS": [ { "value": "8", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_USE_PARITY": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_ODD_PARITY": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ]
+      },
+      "project_parameters": {
+        "ARCHITECTURE": [ { "value": "artix7" } ],
+        "BASE_BOARD_PART": [ { "value": "digilentinc.com:arty-a7-35:part0:1.1" } ],
+        "BOARD_CONNECTIONS": [ { "value": "" } ],
+        "DEVICE": [ { "value": "xc7a35ti" } ],
+        "PACKAGE": [ { "value": "csg324" } ],
+        "PREFHDL": [ { "value": "VERILOG" } ],
+        "SILICON_REVISION": [ { "value": "" } ],
+        "SIMULATOR_LANGUAGE": [ { "value": "MIXED" } ],
+        "SPEEDGRADE": [ { "value": "-1L" } ],
+        "STATIC_POWER": [ { "value": "" } ],
+        "TEMPERATURE_GRADE": [ { "value": "I" } ]
+      },
+      "runtime_parameters": {
+        "IPCONTEXT": [ { "value": "IP_Integrator" } ],
+        "IPREVISION": [ { "value": "32" } ],
+        "MANAGED": [ { "value": "TRUE" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../ArtyA7_MicroBlaze_demo_hw.gen/sources_1/bd/system/ip/system_axi_uartlite_0_0" } ],
+        "SELECTEDSIMMODEL": [ { "value": "" } ],
+        "SHAREDDIR": [ { "value": "../../ipshared" } ],
+        "SWVERSION": [ { "value": "2023.1" } ],
+        "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
+      }
+    },
+    "boundary": {
+      "ports": {
+        "s_axi_aclk": [ { "direction": "in", "driver_value": "0" } ],
+        "s_axi_aresetn": [ { "direction": "in", "driver_value": "1" } ],
+        "interrupt": [ { "direction": "out" } ],
+        "s_axi_awaddr": [ { "direction": "in", "size_left": "3", "size_right": "0", "driver_value": "0" } ],
+        "s_axi_awvalid": [ { "direction": "in", "driver_value": "0" } ],
+        "s_axi_awready": [ { "direction": "out" } ],
+        "s_axi_wdata": [ { "direction": "in", "size_left": "31", "size_right": "0", "driver_value": "0" } ],
+        "s_axi_wstrb": [ { "direction": "in", "size_left": "3", "size_right": "0", "driver_value": "0" } ],
+        "s_axi_wvalid": [ { "direction": "in", "driver_value": "0" } ],
+        "s_axi_wready": [ { "direction": "out" } ],
+        "s_axi_bresp": [ { "direction": "out", "size_left": "1", "size_right": "0" } ],
+        "s_axi_bvalid": [ { "direction": "out" } ],
+        "s_axi_bready": [ { "direction": "in", "driver_value": "0" } ],
+        "s_axi_araddr": [ { "direction": "in", "size_left": "3", "size_right": "0", "driver_value": "0" } ],
+        "s_axi_arvalid": [ { "direction": "in", "driver_value": "0" } ],
+        "s_axi_arready": [ { "direction": "out" } ],
+        "s_axi_rdata": [ { "direction": "out", "size_left": "31", "size_right": "0" } ],
+        "s_axi_rresp": [ { "direction": "out", "size_left": "1", "size_right": "0" } ],
+        "s_axi_rvalid": [ { "direction": "out" } ],
+        "s_axi_rready": [ { "direction": "in", "driver_value": "0" } ],
+        "rx": [ { "direction": "in", "driver_value": "0" } ],
+        "tx": [ { "direction": "out" } ]
+      },
+      "interfaces": {
+        "S_AXI": {
+          "vlnv": "xilinx.com:interface:aximm:1.0",
+          "abstraction_type": "xilinx.com:interface:aximm_rtl:1.0",
+          "mode": "slave",
+          "parameters": {
+            "DATA_WIDTH": [ { "value": "32", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "PROTOCOL": [ { "value": "AXI4LITE", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_HZ": [ { "value": "200000000", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "ID_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "ADDR_WIDTH": [ { "value": "4", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "AWUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "ARUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "WUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "RUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "BUSER_WIDTH": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "READ_WRITE_MODE": [ { "value": "READ_WRITE", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_BURST": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_LOCK": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_PROT": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_CACHE": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_QOS": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_REGION": [ { "value": "0", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_WSTRB": [ { "value": "1", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_BRESP": [ { "value": "1", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "HAS_RRESP": [ { "value": "1", "value_src": "constant", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "SUPPORTS_NARROW_BURST": [ { "value": "0", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "NUM_READ_OUTSTANDING": [ { "value": "2", "value_src": "default_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "NUM_WRITE_OUTSTANDING": [ { "value": "2", "value_src": "default_prop", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "MAX_BURST_LENGTH": [ { "value": "1", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "PHASE": [ { "value": "0.0", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "/clk_wiz_1_clk_out1", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "NUM_READ_THREADS": [ { "value": "1", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "NUM_WRITE_THREADS": [ { "value": "1", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "RUSER_BITS_PER_BYTE": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "WUSER_BITS_PER_BYTE": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "ARADDR": [ { "physical_name": "s_axi_araddr" } ],
+            "ARREADY": [ { "physical_name": "s_axi_arready" } ],
+            "ARVALID": [ { "physical_name": "s_axi_arvalid" } ],
+            "AWADDR": [ { "physical_name": "s_axi_awaddr" } ],
+            "AWREADY": [ { "physical_name": "s_axi_awready" } ],
+            "AWVALID": [ { "physical_name": "s_axi_awvalid" } ],
+            "BREADY": [ { "physical_name": "s_axi_bready" } ],
+            "BRESP": [ { "physical_name": "s_axi_bresp" } ],
+            "BVALID": [ { "physical_name": "s_axi_bvalid" } ],
+            "RDATA": [ { "physical_name": "s_axi_rdata" } ],
+            "RREADY": [ { "physical_name": "s_axi_rready" } ],
+            "RRESP": [ { "physical_name": "s_axi_rresp" } ],
+            "RVALID": [ { "physical_name": "s_axi_rvalid" } ],
+            "WDATA": [ { "physical_name": "s_axi_wdata" } ],
+            "WREADY": [ { "physical_name": "s_axi_wready" } ],
+            "WSTRB": [ { "physical_name": "s_axi_wstrb" } ],
+            "WVALID": [ { "physical_name": "s_axi_wvalid" } ]
+          }
+        },
+        "ACLK": {
+          "vlnv": "xilinx.com:signal:clock:1.0",
+          "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
+          "mode": "slave",
+          "parameters": {
+            "ASSOCIATED_BUSIF": [ { "value": "S_AXI", "value_src": "constant", "value_permission": "bd", "usage": "all" } ],
+            "ASSOCIATED_RESET": [ { "value": "s_axi_aresetn", "value_src": "constant", "value_permission": "bd", "usage": "all" } ],
+            "FREQ_HZ": [ { "value": "200000000", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "user", "format": "long", "usage": "all" } ],
+            "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "PHASE": [ { "value": "0.0", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "/clk_wiz_1_clk_out1", "value_src": "ip_propagated", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_PORT": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "CLK": [ { "physical_name": "s_axi_aclk" } ]
+          }
+        },
+        "ARESETN": {
+          "vlnv": "xilinx.com:signal:reset:1.0",
+          "abstraction_type": "xilinx.com:signal:reset_rtl:1.0",
+          "mode": "slave",
+          "parameters": {
+            "POLARITY": [ { "value": "ACTIVE_LOW", "value_src": "constant", "value_permission": "bd", "usage": "all" } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "RST": [ { "physical_name": "s_axi_aresetn" } ]
+          }
+        },
+        "INTERRUPT": {
+          "vlnv": "xilinx.com:signal:interrupt:1.0",
+          "abstraction_type": "xilinx.com:signal:interrupt_rtl:1.0",
+          "mode": "master",
+          "parameters": {
+            "SENSITIVITY": [ { "value": "EDGE_RISING", "value_src": "constant", "value_permission": "bd", "usage": "all" } ],
+            "PortWidth": [ { "value": "1", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "INTERRUPT": [ { "physical_name": "interrupt" } ]
+          }
+        },
+        "UART": {
+          "vlnv": "xilinx.com:interface:uart:1.0",
+          "abstraction_type": "xilinx.com:interface:uart_rtl:1.0",
+          "mode": "master",
+          "parameters": {
+            "BOARD.ASSOCIATED_PARAM": [ { "value": "UARTLITE_BOARD_INTERFACE", "value_src": "constant", "value_permission": "bd", "usage": "all" } ]
+          },
+          "port_maps": {
+            "RxD": [ { "physical_name": "rx" } ],
+            "TxD": [ { "physical_name": "tx" } ]
+          }
+        }
+      },
+      "memory_maps": {
+        "S_AXI": {
+          "display_name": "S_AXI_MEM",
+          "description": "Memory Map for S_AXI",
+          "address_blocks": {
+            "Reg": {
+              "base_address": "0",
+              "range": "4096",
+              "display_name": "Reg",
+              "description": "Register Block",
+              "usage": "register",
+              "access": "read-write",
+              "registers": {
+                "RX_FIFO": {
+                  "address_offset": "0x0",
+                  "size": 32,
+                  "display_name": "RX FIFO",
+                  "description": "Receive data FIFO",
+                  "is_volatile": true,
+                  "access": "read-only",
+                  "reset_value": "0x0",
+                  "fields": {
+                    "RX_DATA": {
+                      "bit_offset": 0,
+                      "bit_width": 8,
+                      "display_name": "Receive Data",
+                      "description": "UART Receive Data\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    }
+                  }
+                },
+                "TX_FIFO": {
+                  "address_offset": "0x4",
+                  "size": 32,
+                  "display_name": "TX FIFO",
+                  "description": "Transmit data FIFO",
+                  "is_volatile": true,
+                  "access": "write-only",
+                  "reset_value": "0x0",
+                  "fields": {
+                    "TX_DATA": {
+                      "bit_offset": 0,
+                      "bit_width": 8,
+                      "display_name": "Transmit Data",
+                      "description": "UART Transmit Data\n",
+                      "is_volatile": true,
+                      "access": "write-only"
+                    }
+                  }
+                },
+                "CTRL_REG": {
+                  "address_offset": "0xC",
+                  "size": 32,
+                  "display_name": "Control Register",
+                  "description": "UART Lite control register",
+                  "is_volatile": true,
+                  "access": "write-only",
+                  "reset_value": "0x0",
+                  "fields": {
+                    "RST_TXFIFO": {
+                      "bit_offset": 0,
+                      "bit_width": 1,
+                      "display_name": "Reset Tx FIFO",
+                      "description": "Reset/clear the transmit FIFO\nWriting a 1 to this bit position clears the transmit FIFO\n  0 - Do nothing\n  1 - Clear the transmit FIFO\n",
+                      "is_volatile": true,
+                      "access": "write-only"
+                    },
+                    "RST_RXFIFO": {
+                      "bit_offset": 1,
+                      "bit_width": 1,
+                      "display_name": "Reset Rx FIFO",
+                      "description": "Reset/clear the receive FIFO\nWriting a 1 to this bit position clears the receive FIFO\n  0 - Do nothing\n  1 - Clear the receive FIFO\n",
+                      "is_volatile": true,
+                      "access": "write-only"
+                    },
+                    "Enable_Intr": {
+                      "bit_offset": 4,
+                      "bit_width": 1,
+                      "display_name": "Enable interrupt",
+                      "description": "Enable interrupt for the AXI UART Lite\n  0 - Disable interrupt signal\n  1 - Enable interrupt signal\n",
+                      "is_volatile": true,
+                      "access": "write-only"
+                    }
+                  }
+                },
+                "STAT_REG": {
+                  "address_offset": "0x8",
+                  "size": 32,
+                  "display_name": "Status Register",
+                  "description": "UART Lite status register",
+                  "is_volatile": true,
+                  "access": "read-only",
+                  "reset_value": "0x0",
+                  "fields": {
+                    "RX_FIFO_Valid_Data": {
+                      "bit_offset": 0,
+                      "bit_width": 1,
+                      "display_name": "RX FIFO Valid Data",
+                      "description": "Indicates if the receive FIFO has data.\n  0 - Receive FIFO is empty\n  1 - Receive FIFO has data\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "RX_FIFO_Full": {
+                      "bit_offset": 1,
+                      "bit_width": 1,
+                      "display_name": "RX FIFO Full",
+                      "description": "Indicates if the receive FIFO is full.\n  0 - Receive FIFO is not full\n  1 - Receive FIFO is full\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "TX_FIFO_Empty": {
+                      "bit_offset": 2,
+                      "bit_width": 1,
+                      "display_name": "TX FIFO Empty",
+                      "description": "Indicates if the transmit FIFO is empty.\n  0 - Transmit FIFO is not empty\n  1 - Transmit FIFO is empty\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "TX_FIFO_Full": {
+                      "bit_offset": 3,
+                      "bit_width": 1,
+                      "display_name": "TX FIFO Full",
+                      "description": "Indicates if the transmit FIFO is full.\n  0 - Transmit FIFO is not full\n  1 - Transmit FIFO is full\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "Intr_Enabled": {
+                      "bit_offset": 4,
+                      "bit_width": 1,
+                      "display_name": "Interrupt Enabled",
+                      "description": "Indicates that interrupts is enabled.\n  0 - Interrupt is disabled\n  1 - Interrupt is enabled\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "Overrun_Error": {
+                      "bit_offset": 5,
+                      "bit_width": 1,
+                      "display_name": "Overrun Error",
+                      "description": "Indicates that a overrun error has occurred after the last time the status register was read. Overrun is when a new character has been received but the receive FIFO is full. The received character is ignored and not written into the receive FIFO. This bit is cleared when the status register is read.      0 - No overrun error has occurred      1 - Overrun error has occurred\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "Frame_Error": {
+                      "bit_offset": 6,
+                      "bit_width": 1,
+                      "display_name": "Frame Error",
+                      "description": "Indicates that a frame error has occurred after the last time the status register was read. Frame error is defined as detection of a stop bit with the value 0. The receive character is ignored and not written to the receive FIFO. This bit is cleared when the status register is read.      0 - No frame error has occurred   1 - Frame error has occurred\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    },
+                    "Parity_Error": {
+                      "bit_offset": 7,
+                      "bit_width": 1,
+                      "display_name": "Parity Error",
+                      "description": "Indicates that a parity error has occurred after the last time the status register was read. If the UART is configured without any parity handling, this bit is always 0. The received character is written into the receive FIFO. This bit is cleared when the status register is read.      0 - No parity error has occurred      1 - Parity error has occurred\n",
+                      "is_volatile": true,
+                      "access": "read-only"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+17:17:36 **** Clean-only build of configuration Release for project DDR_speed_test_system ****
+make clean 
+rm -rf ./_sds
+rm -rf package
+rm -f system.bif
+
+17:17:36 Build Finished (took 85ms)
+
