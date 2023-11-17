@@ -69,7 +69,7 @@ Now we will manually create the ports we need.
 
 Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from the [Digilent GitHub](https://github.com/Digilent). The .xdc file for A7-100 works also for A7-35. The pin connection is the same.
 
-- In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as cka6..11 on my specimen of A7-35. Do use .xdc for A7-100.
+- In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as cka6..11 on my specimen of A7-35. Do use A7-100 .xdc.
 
 Add Arty-A7-100-Master.xdc as the constraints file to Vivado (window Sources, "+" button). Do not forget to check "Copy constraints file into project". We want to have a copy of the file in the project because we are going to edit it.
 
@@ -88,7 +88,7 @@ set_property -dict { PACKAGE_PIN F5    IOSTANDARD LVCMOS33 } [get_ports { ck_a0 
 set_property -dict { PACKAGE_PIN C2    IOSTANDARD LVCMOS33 } [get_ports { ck_rst }]; #IO_L16P_T2_35 Sch=ck_rst
 ```
 
-Now add the three ports to the diagram (select Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when <u>not</u> pressed).
+Now add the three ports to the diagram (select Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when <ins>not</ins> pressed).
 
 <img src="pictures/add_port1.png" title="" alt="" width="377">
 
