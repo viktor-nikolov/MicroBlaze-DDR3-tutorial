@@ -26,11 +26,23 @@ Let's start with the most complicated part, the Memory Interface Generator (MIG)
 
 Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to the empty board design. Vivado does its magic and configures the MIG for the Arty A7 DDR3 memory based on settings in the board file. The following IP appears in the design:
 
-<img src="pictures/mig_added.png" title="" alt="" width="327">
+<img title="" src="pictures/mig_added.png" alt="" width="477">
 
 Unfortunately, there are two problems:
 
- it knows 100 MHz input clock. We disable ui_addn_clk.
+###### 1. MIG input Reference Clock must be 200 MHz
+
+- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See. Arty A7 has only one onboard oscillator, which provides a  [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
+
+- The Vitis assumes that we have an input port, which can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock.
+
+- We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
+
+###### 2. We can't connect external system clock to MIG directly
+
+- x
+
+it knows 100 MHz input clock. We disable ui_addn_clk.
 
 We must add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) for the sys_clk_i, otherwise, we would get an error during implementation saying "[DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35" stating conflicting voltages of sys_clk_i and ck_a0.
 My understanding is that adding BUFG changes routing of the sys_clk_i so it doesn't collide with the rest of pins in the bank 35.
