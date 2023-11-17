@@ -49,21 +49,17 @@ Unfortunately, there are two problems:
 
 Let's make the needed changes.
 
+Delete ports clk_ref_i and sys_clk_i.  
+(The port ddr3_sdram is OK. It represents connection to the DDR3 chip on the board and it was correctly configured by the automation.)
 
+We must re-synthetize the MIG in order to get rid of automatically generated configuration related to sys_clk_i.
 
-Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Double-click it for configuration and select C Buf Type as BUFG.
-
-![](pictures/bufg.png)
-
-Connect sys_clk_i to BUFG_I and BUFG_O to MIG.sys_clk_i.
-
-Double-click the MIG and click Next till you get to the "Memory Options C0" page. Disable "Select Additional Clocks":
+Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period is configured.)  
+Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from MIG, we will use a Clocking Wizzard.
 
 ![](pictures/mig_update.png)
 
 Then finish the MIG configuration wizard without further changes (you need to click Validate on the "Pin Selection For Controller 0" page to enable the Next button.).
-
-Delete ports clk_ref_i and sys_clk_i.
 
 Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from Digilent GitHub
 XDC file for A7-100 works also for A7-35. The pin connection is the same.
@@ -94,6 +90,12 @@ Now add the ports to the diagram (click Create Port in the context menu, which o
 ![](pictures/add_port3.png)
 
 **Do not run Connection Automation yet.**
+
+Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Double-click it for configuration and select C Buf Type as BUFG.
+
+![](pictures/bufg.png)
+
+Connect sys_clk_i to BUFG_I and BUFG_O to MIG.sys_clk_i.
 
 Now we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for MIG and the 210 MHz clock we will use to clock the MicroBlaze and other IPs.
 
