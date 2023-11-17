@@ -10,13 +10,13 @@ Select "RTL Project" and "Do not specify sources at this time". Click Next.
 
 Select Arty A7-100 or -35 board based on the board you are using. The steps in this tutorial are exactly the same for both models. By selecting the board, we will use the board file provided by Digilent.
 
-<img src="pictures/select_board.png" title="" alt="" width="351">
+<img title="" src="pictures/select_board.png" alt="" width="475">
 
 Click Next and Finish. The Vivado IDE will open an empty project.
 
 Click Create Block Design, and name the design "system":
 
-![](pictures/name_bd.png)
+<img title="" src="pictures/name_bd.png" alt="" width="310">
 
 An empty block design window opens.
 
