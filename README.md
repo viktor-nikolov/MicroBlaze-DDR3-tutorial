@@ -1,4 +1,4 @@
-# Demo of MicroBlaze using DDR3 RAM on ArtyA7
+# Demo of MicroBlaze using DDR3 RAM on Arty A7
 
 This is a demo HW design of [MicroBlaze](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on a [Digilent Arty A7 board](https://digilent.com/shop/arty-a7-100t-artix-7-fpga-development-board/).
 
