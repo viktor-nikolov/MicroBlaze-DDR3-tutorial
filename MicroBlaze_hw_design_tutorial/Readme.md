@@ -42,18 +42,14 @@ Unfortunately, there are two problems:
 
 - I learned "the hard way" that if we leave the external 100 MHz port sys_clk_i connected directly to MIG.sys_clk_i, we will later face an error during Implementation in case we use a pin from bank 35 in the design.
 - Pins of  Xilinx Artix-7 FPGAs are organized into banks. Banks are identified by numbers. In the [schematics of Arty A7](https://digilent.com/reference/_media/programmable-logic/arty-a7/arty-a7-e2-sch.pdf) we can see that pins connected to sockets on the Arty A7 belong to banks 14, 15 and 35. All pins in a given bank must work on the same voltage. In the case of the Arty A7, banks 14, 15 and 35 work on 3.3 V.
-- The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the pin E3 in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore Vitis raises the following error when I used a pin ck_a0 (belonging to bank 35) in the design:
+- The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the pin E3 in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore Vitis raises the following error when I used a pin ck_a0 (also belonging to bank 35) in the design:
   - [DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35. For example, the following two ports in this bank have conflicting VCCOs:  
     sys_clk_i (LVCMOS25, requiring VCCO=2.500) and ck_a0[0] (LVCMOS33, requiring VCCO=3.300)
+- I realize that the previous paragraphs may sound complicated, but the good news is that I found a solution to the issue. We simply add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) on the external clock input. My understanding is that adding BUFG changes the routing of the external clock so it doesn't collide with the rest of the pins in the bank 35.
+
+Let's make the needed changes.
 
 
-
-
-
-it knows 100 MHz input clock. We disable ui_addn_clk.
-
-We must add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) for the sys_clk_i, otherwise, we would get an error during implementation saying "[DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35" stating conflicting voltages of sys_clk_i and ck_a0.
-My understanding is that adding BUFG changes routing of the sys_clk_i so it doesn't collide with the rest of pins in the bank 35.
 
 Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Double-click it for configuration and select C Buf Type as BUFG.
 
