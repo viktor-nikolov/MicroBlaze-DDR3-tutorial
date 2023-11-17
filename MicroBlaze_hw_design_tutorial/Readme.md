@@ -119,7 +119,7 @@ So now we have the following diagram:
 
 ![](pictures/wizard_added.png)
 
---------------------
+xxxx
 
 Drag USB UART  from the Board window to the diagram. It will create AXI UART lite IP.
 
