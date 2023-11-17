@@ -65,16 +65,15 @@ Click Next. And select System Clock "No Buffer".
 
 Then finish the MIG configuration wizard without further changes (you need to click Validate on the "Pin Selection For Controller 0" page to enable the Next button.).
 
-------------------
+Now we will manually create the ports we need.
 
-Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from Digilent GitHub
-XDC file for A7-100 works also for A7-35. The pin connection is the same.
+Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from Digilent GitHub. The .xdc file for A7-100 works also for A7-35. The pin connection is the same.
 
-- In fact, the A7-35 XDC on GitHub seems to be wrong. It differs only in the names of pins ck_io20..25, which are printed as cka6..11 on my specimen of A7-35.
+- In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as cka6..11 on my specimen of A7-35. Do use .xdc for A7-100.
 
 Add Arty-A7-100-Master.xdc as the constraints file to Vivado (window Sources, "+" button). Do not forget to check "Copy constraints file into project". We want to have a copy of the file in the project because we are going to edit it.
 
-Open the .xdc file in the editor. Uncomment the two lines for port CLK100MHZ and the lines for ports ck_a0 and ck_rst.
+Open the .xdc file in the editor. Uncomment the two lines for port CLK100MHZ and the lines for ports ck_a0 and ck_rst.  
 So the effective content of the .xdc file will be as follows:
 
 ```
@@ -89,9 +88,9 @@ set_property -dict { PACKAGE_PIN F5    IOSTANDARD LVCMOS33 } [get_ports { ck_a0 
 set_property -dict { PACKAGE_PIN C2    IOSTANDARD LVCMOS33 } [get_ports { ck_rst }]; #IO_L16P_T2_35 Sch=ck_rst
 ```
 
-Now add the ports to the diagram (click Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when not pressed).
+Now add the ports to the diagram (select Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when <u>not</u> pressed).
 
-![](pictures/add_port1.png)
+<img src="pictures/add_port1.png" title="" alt="" width="377">
 ![](pictures/add_port2.png)
 ![](pictures/add_port3.png)
 
