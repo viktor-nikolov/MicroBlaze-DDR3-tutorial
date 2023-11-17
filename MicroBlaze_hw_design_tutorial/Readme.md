@@ -30,10 +30,7 @@ Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to 
 
 Unfortunately, there are two problems:
 
-
  it knows 100 MHz input clock. We disable ui_addn_clk.
-
-
 
 We must add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) for the sys_clk_i, otherwise, we would get an error during implementation saying "[DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35" stating conflicting voltages of sys_clk_i and ck_a0.
 My understanding is that adding BUFG changes routing of the sys_clk_i so it doesn't collide with the rest of pins in the bank 35.
