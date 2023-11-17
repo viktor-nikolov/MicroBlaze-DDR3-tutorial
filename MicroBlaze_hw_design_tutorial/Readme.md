@@ -4,8 +4,8 @@ This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](htt
 
 ## Memory Interface Generator configuration and connections
 
-Start Vivado 2023.1. Click Create Project. Click Next.
-Enter the project name and directory. Click Next.
+Start Vivado 2023.1. Click Create Project. Click Next.  
+Enter the project name and directory. Click Next.  
 Select "RTL Project" and "Do not specify sources at this time". Click Next.
 
 Select Arty A7-100 or -35 board based on the board you are using. The steps in this tutorial are exactly the same for both models. By selecting the board, we will use the board file provided by Digilent.
