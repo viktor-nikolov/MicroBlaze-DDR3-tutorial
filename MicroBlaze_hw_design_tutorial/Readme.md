@@ -117,7 +117,7 @@ Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram
 Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out1 to MIG.clk_ref_i.  
 So now we have the following diagram:
 
-![](pictures/wizard_added.png)
+<img src="pictures/wizard_added.png" title="" alt="" width="547">
 
 xxxx
 
