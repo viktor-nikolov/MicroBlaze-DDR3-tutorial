@@ -110,7 +110,7 @@ Next we need to add a Clocking Wizzard to generate the 200 MHz clock needed as t
 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We do changes only on the Output Clocks tab. Define the two output clocks as 200 MHz and 210 MHz and set Reset Type Active Low.
 
-- 210 MHz clock for MicroZed worked OK in my testing. Maybe you can go a bit higher. Finding a high-frequency clock for a stable design requires some experimenting.
+- 210 MHz clock for MicroBlaze worked OK in my testing. Maybe you can go a bit higher. Finding a high-frequency clock for a stable design requires some experimenting.
 
 <img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
 
