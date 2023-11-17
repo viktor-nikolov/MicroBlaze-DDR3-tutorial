@@ -32,13 +32,13 @@ Unfortunately, there are two problems:
 
 #### 1. MIG input Reference Clock must be 200 MHz
 
-- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See. Arty A7 has only one onboard oscillator, which provides a  [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
+- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
 
 - The Vitis assumes that we have an input port, which can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock.
 
 - We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
 
-##### 2. We can't connect external system clock to MIG directly
+#### 2. We can't connect the external system clock to MIG directly
 
 - x
 
