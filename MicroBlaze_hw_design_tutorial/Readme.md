@@ -88,7 +88,7 @@ set_property -dict { PACKAGE_PIN F5    IOSTANDARD LVCMOS33 } [get_ports { ck_a0 
 set_property -dict { PACKAGE_PIN C2    IOSTANDARD LVCMOS33 } [get_ports { ck_rst }]; #IO_L16P_T2_35 Sch=ck_rst
 ```
 
-Now add the ports to the diagram (select Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when <u>not</u> pressed).
+Now add the three ports to the diagram (select Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when <u>not</u> pressed).
 
 <img src="pictures/add_port1.png" title="" alt="" width="377">
 
@@ -100,18 +100,26 @@ Now add the ports to the diagram (select Create Port in the context menu, which 
 
 Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Double-click it for configuration and select C Buf Type as BUFG.
 
-![](pictures/bufg.png)
+<img src="pictures/bufg.png" title="" alt="" width="431">
 
-Connect sys_clk_i to BUFG_I and BUFG_O to MIG.sys_clk_i.
+Connect CLK100MHZ to BUFG_I and BUFG_O to MIG.sys_clk_i.  
+Connect ck_rst to MIG.ck_rst.  
+(We leave ck_a0 unconnected for now.)
 
-Now we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for MIG and the 210 MHz clock we will use to clock the MicroBlaze and other IPs.
+Next we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for MIG and the 210 MHz clock we will use to clock the MicroBlaze and other IPs.
 
-Search for "clock" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We do changes only on the Output Clocks tab, defining the two output clocks and setting Reset Type Active Low:
+Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We do changes only on the Output Clocks tab. Define the two output clocks as 200 MHz and 210 MHz and set Reset Type Active Low.
 
-![](pictures/clocking_wizzard.png)
+- 210 MHz clock for MicroZed worked OK in my testing. Maybe you can go a bit higher. Finding a high-frequency clock for a stable design requires some experimenting.
 
-Connect the ports as follows (we connect ck_a0 later):
+<img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
+
+Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out1 to MIG.clk_ref_i.  
+So now we have the following diagram:
+
 ![](pictures/wizard_added.png)
+
+--------------------
 
 Drag USB UART  from the Board window to the diagram. It will create AXI UART lite IP.
 
