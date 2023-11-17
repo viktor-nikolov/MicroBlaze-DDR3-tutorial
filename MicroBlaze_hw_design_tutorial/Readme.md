@@ -57,7 +57,7 @@ We must re-synthetize the MIG in order to get rid of automatically generated con
 Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period is configured.)  
 Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from MIG, we will use a Clocking Wizzard.
 
-![](pictures/mig_update.png)
+<img src="pictures/mig_update.png" title="" alt="" width="604">
 
 Then finish the MIG configuration wizard without further changes (you need to click Validate on the "Pin Selection For Controller 0" page to enable the Next button.).
 
