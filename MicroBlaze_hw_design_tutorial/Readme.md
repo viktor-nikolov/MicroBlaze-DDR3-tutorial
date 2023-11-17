@@ -57,9 +57,15 @@ We must re-synthetize the MIG in order to get rid of automatically generated con
 Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period is configured.)  
 Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from MIG, we will use a Clocking Wizzard.
 
-<img src="pictures/mig_update.png" title="" alt="" width="604">
+<img src="pictures/mig_update.png" title="" alt="" width="600">
+
+Click Next. And select System Clock "No Buffer".
+
+<img src="pictures/clock_no_buffer.png" title="" alt="" width="600">
 
 Then finish the MIG configuration wizard without further changes (you need to click Validate on the "Pin Selection For Controller 0" page to enable the Next button.).
+
+------------------
 
 Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from Digilent GitHub
 XDC file for A7-100 works also for A7-35. The pin connection is the same.
