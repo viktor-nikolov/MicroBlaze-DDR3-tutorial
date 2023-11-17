@@ -30,7 +30,7 @@ Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to 
 
 Unfortunately, there are two problems:
 
-###### 1. MIG input Reference Clock must be 200 MHz change
+##### 1. MIG input Reference Clock must be 200 MHz
 
 - The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See. Arty A7 has only one onboard oscillator, which provides a  [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
 
@@ -38,7 +38,7 @@ Unfortunately, there are two problems:
 
 - We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
 
-###### 2. We can't connect external system clock to MIG directly
+##### 2. We can't connect external system clock to MIG directly
 
 - x
 
