@@ -92,9 +92,9 @@ Now add the ports to the diagram (select Create Port in the context menu, which 
 
 <img src="pictures/add_port1.png" title="" alt="" width="377">
 
-<img src="pictures/add_port2.png" title="" alt="" width="475">
+<img src="pictures/add_port2.png" title="" alt="" width="377">
 
-<img src="pictures/add_port3.png" title="" alt="" width="495">
+<img src="pictures/add_port3.png" title="" alt="" width="377">
 
 **Do not run Connection Automation yet.**
 
