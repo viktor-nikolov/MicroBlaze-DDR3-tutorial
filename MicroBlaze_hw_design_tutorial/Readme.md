@@ -91,8 +91,10 @@ set_property -dict { PACKAGE_PIN C2    IOSTANDARD LVCMOS33 } [get_ports { ck_rst
 Now add the ports to the diagram (select Create Port in the context menu, which opens on the right-click on an empty diagram space). Select port type. Set the frequency for CLK100MHZ and the polarity Active Low for ck_rst (this is because the button connected to the ck_rst port generates a high signal when <u>not</u> pressed).
 
 <img src="pictures/add_port1.png" title="" alt="" width="377">
-![](pictures/add_port2.png)
-![](pictures/add_port3.png)
+
+<img src="pictures/add_port2.png" title="" alt="" width="475">
+
+<img src="pictures/add_port3.png" title="" alt="" width="495">
 
 **Do not run Connection Automation yet.**
 
