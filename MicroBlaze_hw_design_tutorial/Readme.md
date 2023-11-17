@@ -67,7 +67,7 @@ Then finish the MIG configuration wizard without further changes (you need to cl
 
 Now we will manually create the ports we need.
 
-Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from Digilent GitHub. The .xdc file for A7-100 works also for A7-35. The pin connection is the same.
+Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from the [Digilent GitHub](https://github.com/Digilent). The .xdc file for A7-100 works also for A7-35. The pin connection is the same.
 
 - In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as cka6..11 on my specimen of A7-35. Do use .xdc for A7-100.
 
