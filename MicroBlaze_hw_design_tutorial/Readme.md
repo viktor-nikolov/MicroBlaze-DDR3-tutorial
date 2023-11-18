@@ -158,7 +158,8 @@ We will use the 210 MHz /clk_wiz_0/clk_out2 for MicroBlaze, select it as the Clo
 
 <img title="" src="pictures/block_automation.png" alt="" width="537">
 
-**TODO**
+After clicking OK a lot will happen in the diagram.  
+
 
 ![](pictures/microblaze_added.png)
 
