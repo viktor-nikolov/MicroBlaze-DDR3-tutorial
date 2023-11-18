@@ -172,7 +172,7 @@ The testing app in this repository is a simple memory read speed test. On a 50 k
 Double-click on the MicroBlaze and click Next till the cache configuration page.  
 Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of Victims to 4.
 
-![](pictures/cache_config.png)
+<img src="pictures/cache_config.png" title="" alt="" width="623">
 
 Go to the next page for Debug configuration, and set "Number of Write Address Watchpoints" and "Number of Read Address Watchpoints" to 1. This will make debugging a bit easier.
 
