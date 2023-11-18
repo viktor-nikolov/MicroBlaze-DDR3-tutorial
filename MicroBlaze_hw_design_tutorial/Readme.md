@@ -182,10 +182,12 @@ We are now at the final step.
 
 "Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
 
-Another Vivado magic happened, and we now have the final diagram. I moved IPs around before I took this snapshot:
+Another Vivado magic happened, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
 
 ![](pictures/final_diagram.png)
 
-Validate Design button or F6.
+To make sure that nothing was missed, click Validate Design button in the loolbar of the diagram (or press F6). 
 
-Sources, right-click on system, select "Create HDL Wrapper", select "Let Vivado manage wrapper".
+HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, right-click on "system", select "Create HDL Wrapper", select "Let Vivado manage wrapper".
+
+Now we create the actual output of the design: Click "Generate Bitstream" in the Flow Navigator on the left. Synthesis and Implementation will be run automatically before bitstream generation.
