@@ -127,7 +127,7 @@ For UAT we use the benefit of the board file. Drag "USB UART" from the Board win
 
 We add GPIO manually. Search for "gpio" in the IP Catalog and drag AXI GPIO to the diagram. Double-click it for configuration. We need just one output GPIO pin for our demo, so we select "All Outputs" and set "GPIO Width" to 1:
 
-![](pictures/gpio_config.png)
+<img src="pictures/gpio_config.png" title="" alt="" width="445">
 
 Connect ck_a0 to the output GPIO pin.
 
