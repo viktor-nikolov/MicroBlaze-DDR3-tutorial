@@ -140,9 +140,13 @@ So now we have this (still very simple) diagram:
 
 Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.
 
-"Run Block Automation" appears on the top of the diagram. Click on it.
+"Run Block Automation" appears on the top of the diagram. Click on it. This will open a window for the initial configuration of the MicroBlaze processor.
 
-**TODO**
+We are offered three preset configurations. I like to use the Real-time preset.
+
+Then is the local memory setting, i.e. the memory on the Artix-7 FPGA.   
+All this demo is based on configuring MicroBlaze to use the DDR3 memory (which is much bigger in size than the memory available on the FPGA chip). The demo app will be running in the DDR3 memory.  
+However, I recommend selecting 16kB of the local memory. This is for future use. When you decide to load the FPGA configuration and MicroBlaze app from the flash, you will need the local memory store MicroBlaze bootloader, which will load the app from the flash to DDR3 memory. See this tutorial on the topic: [MicroBlaze SREC SPI bootloader](https://shadowcode.io/microblaze-srec-spi-bootloader-hardware/).
 
 Application, disable Interrupt Controller.
 ck_out2
