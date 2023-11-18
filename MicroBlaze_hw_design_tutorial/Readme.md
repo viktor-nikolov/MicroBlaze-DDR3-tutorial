@@ -159,17 +159,32 @@ We will use the 210 MHz /clk_wiz_0/clk_out2 for MicroBlaze, select it as the Clo
 <img title="" src="pictures/block_automation.png" alt="" width="537">
 
 After clicking OK a lot will happen in the diagram.  
-
+Automation added a Debug Module and local memory for the MicroBlaze. Processor System Reset IP was added to generate a reset signal for MicroBlaze, which is synchronized with the clock.
 
 ![](pictures/microblaze_added.png)
 
-**TODO**
+Let's do a fine-tuning of the MicroBlaze configuration before we continue. 
 
-MicrobLaze Next to cache configuration. Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of Victims to 4.
+The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in FPGA's local memory is tremendously faster than the DDR3 RAM.
+
+The testing app in this repository is a simple memory read speed test. On a 50 kB array, it runs 11.7 milliseconds when caches are disabled. It runs 0.694 milliseconds from the cache (this is not a typo; it does run only 694 microseconds).
+
+Double-click on the MicroBlaze and click Next till the cache configuration page.  
+Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of Victims to 4.
 
 ![](pictures/cache_config.png)
 
-"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values set, and click OK.
+Go to the next page for Debug configuration, and set "Number of Write Address Watchpoints" and "Number of Read Address Watchpoints" to 1. This will make debugging a bit easier.
+
+## Connecting it together
+
+We are now at the final step.
+
+"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
+
+Another Vivado magic happened, and we now have the final diagram. I moved IPs around before I took this snapshot:
+
+![](pictures/final_diagram.png)
 
 Validate Design button or F6.
 
