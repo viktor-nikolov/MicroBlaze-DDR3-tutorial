@@ -117,7 +117,7 @@ Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram
 Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out1 to MIG.clk_ref_i.  
 So now we have the following diagram:
 
-<img title="" src="pictures/wizard_added.png" alt="" width="830">
+<img title="" src="pictures/wizard_added.png" alt="" width="738">
 
 ## Peripherals
 
@@ -133,7 +133,7 @@ Connect ck_a0 to the output GPIO pin.
 
 So now we have this (still very simple) diagram:
 
-<img src="pictures/gpio_added.png" title="" alt="" width="640">
+<img title="" src="pictures/gpio_added.png" alt="" width="749">
 
 Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.
 
