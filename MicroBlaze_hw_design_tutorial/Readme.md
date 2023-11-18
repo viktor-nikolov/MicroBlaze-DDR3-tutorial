@@ -20,9 +20,9 @@ Click Create Block Design, and name the design "system":
 
 An empty block design window opens.
 
-The Arty A7 comes with a relatively well-prepared board file, which allows many steps in the HW design to be automated in Vivado. However, as we will see later, some manual tweaks are still needed because the automation is far from perfect.
+The Arty A7 comes with a relatively well-prepared board file, which allows steps in the HW design to be automated in Vivado. However, as we will see later, some manual tweaks are still needed because the automation is not perfect.
 
-Let's start with the most complicated part, the Memory Interface Generator (MIG). This is an IP provided by Xilinx, which will generate a memory controller for the DDR installed on Arty A7.
+Let's start with the most complicated part, the Memory Interface Generator (MIG). This is an IP provided by Xilinx, which will generate a memory controller for the DDR3 installed on Arty A7.
 
 Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to the empty board design. Vivado does its magic and configures the MIG for the Arty A7 DDR3 memory based on settings in the board file. The following IP appears in the design:
 
@@ -34,7 +34,7 @@ Unfortunately, there are two problems:
 
 - The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
 
-- The Vitis assumes that we have an input port, which can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock.
+- The Vitis assumes that we have an input port, which can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
 - We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
 
@@ -42,7 +42,7 @@ Unfortunately, there are two problems:
 
 - I learned "the hard way" that if we leave the external 100 MHz port sys_clk_i connected directly to MIG.sys_clk_i, we will later face an error during Implementation in case we use a pin from bank 35 in the design.
 - Pins of  Xilinx Artix-7 FPGAs are organized into banks. Banks are identified by numbers. In the [schematics of Arty A7](https://digilent.com/reference/_media/programmable-logic/arty-a7/arty-a7-e2-sch.pdf) we can see that pins connected to sockets on the Arty A7 belong to banks 14, 15 and 35. All pins in a given bank must work on the same voltage. In the case of the Arty A7, banks 14, 15 and 35 work on 3.3 V.
-- The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the pin E3 in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore Vitis raises the following error when I used a pin ck_a0 (also belonging to bank 35) in the design:
+- The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the Artix-7 pin named E3, which is in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore Vitis raises the following error when I used a pin ck_a0 (also belonging to bank 35) in the design:
   - [DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35. For example, the following two ports in this bank have conflicting VCCOs:  
     sys_clk_i (LVCMOS25, requiring VCCO=2.500) and ck_a0[0] (LVCMOS33, requiring VCCO=3.300)
 - I realize that the previous paragraphs may sound complicated, but the good news is that I found a solution to the issue. We simply add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) on the external clock input. My understanding is that adding BUFG changes the routing of the external clock so it doesn't collide with the rest of the pins in the bank 35.
@@ -54,8 +54,8 @@ Delete ports clk_ref_i and sys_clk_i.
 
 We must re-synthetize the MIG in order to get rid of automatically generated configuration related to sys_clk_i.
 
-Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period is configured.)  
-Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from MIG, we will use a Clocking Wizzard.
+Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period was configured.)  
+Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
 
 <img src="pictures/mig_update.png" title="" alt="" width="600">
 
@@ -63,7 +63,7 @@ Click Next. And select System Clock "No Buffer". (As explained earlier, we will 
 
 <img src="pictures/clock_no_buffer.png" title="" alt="" width="600">
 
-Then finish the MIG configuration wizard without further changes (you need to click Validate on the "Pin Selection For Controller 0" page to enable the Next button.).
+Then finish the MIG configuration wizard without further changes (note that you need to click Validate on the "Pin Selection For Controller 0" page to enable the Next button.).
 
 Now we will manually create the ports we need.
 
@@ -106,9 +106,9 @@ Connect CLK100MHZ to BUFG_I and BUFG_O to MIG.sys_clk_i.
 Connect ck_rst to MIG.ck_rst.  
 (We leave ck_a0 unconnected for now.)
 
-Next we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for MIG and the 210 MHz clock we will use to clock the MicroBlaze and other IPs.
+Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for the MIG and the 210 MHz clock we will use to clock the MicroBlaze and other IPs.
 
-Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We do changes only on the Output Clocks tab. Define the two output clocks as 200 MHz and 210 MHz and set Reset Type Active Low.
+Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab. Define the two output clocks as 200 MHz and 210 MHz and set Reset Type Active Low.
 
 - 210 MHz clock for MicroBlaze worked OK in my testing. Maybe you can go a bit higher. Finding a high-frequency clock for a stable design requires some experimenting.
 
