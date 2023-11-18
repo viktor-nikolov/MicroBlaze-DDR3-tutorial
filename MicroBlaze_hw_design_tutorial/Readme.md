@@ -129,11 +129,14 @@ We add GPIO manually. Search for "gpio" in the IP Catalog and drag AXI GPIO to t
 
 <img title="" src="pictures/gpio_config.png" alt="" width="494">
 
-Connect ck_a0 to the output GPIO pin.
+Connect ck_a0 to the output GPIO pin.  
+**Do not run Connection Automation yet.**
 
 So now we have this (still very simple) diagram:
 
 <img title="" src="pictures/gpio_added.png" alt="" width="749">
+
+## MicroBlaze
 
 Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.
 
