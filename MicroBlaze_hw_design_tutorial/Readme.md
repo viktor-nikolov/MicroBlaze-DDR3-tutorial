@@ -182,12 +182,18 @@ We are now at the final step.
 
 "Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
 
-Another Vivado magic happened, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
+Another Vivado magic happens, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
 
 ![](pictures/final_diagram.png)
 
-To make sure that nothing was missed, click Validate Design button in the loolbar of the diagram (or press F6). 
+To make sure that nothing was missed, click the Validate Design button in the toolbar of the diagram window (or press F6). 
 
-HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, right-click on "system", select "Create HDL Wrapper", select "Let Vivado manage wrapper".
+HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, right-click on "system", select "Create HDL Wrapper", and select "Let Vivado manage wrapper".
 
-Now we create the actual output of the design: Click "Generate Bitstream" in the Flow Navigator on the left. Synthesis and Implementation will be run automatically before bitstream generation.
+Now we create the design outputs: Click "Generate Bitstream" in the Flow Navigator on the left. Synthesis and Implementation will be run automatically before bitstream generation.
+
+There should be no errors. However, expect one critical warning which says "[Timing 38-282] The design failed to meet the timing requirements.".  
+In this demo, we do not need to worry about timing requirements.
+
+Last but not least, we need to export the hardware specification. It is necessary for the development of the SW app for the MicroBlaze in Vitis IDE.  
+Go to File|Export|Export Hardware, select "Include Bitstream"
