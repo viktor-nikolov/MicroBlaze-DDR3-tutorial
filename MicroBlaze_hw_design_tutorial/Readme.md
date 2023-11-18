@@ -127,13 +127,13 @@ For UAT we use the benefit of the board file. Drag "USB UART" from the Board win
 
 We add GPIO manually. Search for "gpio" in the IP Catalog and drag AXI GPIO to the diagram. Double-click it for configuration. We need just one output GPIO pin for our demo, so we select "All Outputs" and set "GPIO Width" to 1:
 
-<img src="pictures/gpio_config.png" title="" alt="" width="445">
+<img title="" src="pictures/gpio_config.png" alt="" width="494">
 
 Connect ck_a0 to the output GPIO pin.
 
 So now we have this (still very simple) diagram:
 
-![](pictures/gpio_added.png)
+<img src="pictures/gpio_added.png" title="" alt="" width="640">
 
 Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.
 
