@@ -156,7 +156,7 @@ Disable Interrupt Controller; we won't be using interrupts in this demo. If need
 
 We will use the 210 MHz /clk_wiz_0/clk_out2 for MicroBlaze, select it as the Clock Connection.
 
-![](pictures/block_automation.png)
+<img src="pictures/block_automation.png" title="" alt="" width="639">
 
 **TODO**
 
