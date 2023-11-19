@@ -167,10 +167,10 @@ Let's do a fine-tuning of the MicroBlaze configuration before we continue.
 
 The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in FPGA's local memory is tremendously faster than the DDR3 RAM.
 
-The testing app in this repository is a simple memory read speed test. On a 50 kB array, it runs 11.7 milliseconds when caches are disabled. It runs 0.694 milliseconds from the cache (this is not a typo; it does run only 694 microseconds).
+The testing app in this repository is a simple memory read speed test. On a 50 kB array, it runs 11.7 milliseconds when caches are disabled. It runs 0.694 milliseconds from the cache (this is not a typo; it does run only 694 microseconds from the cache).
 
 Double-click on the MicroBlaze and click Next till the cache configuration page.  
-Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of Victims to 4.
+Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of Victims to 8.
 
 <img title="" src="pictures/cache_config.png" alt="" width="679">
 
@@ -185,6 +185,10 @@ We are now at the final step.
 Another Vivado magic happens, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
 
 ![](pictures/final_diagram.png)
+
+Let me provide a few comments on what we see in the final diagram:
+
+## Generating output
 
 To make sure that nothing was missed, click the Validate Design button in the toolbar of the diagram window (or press F6). 
 
