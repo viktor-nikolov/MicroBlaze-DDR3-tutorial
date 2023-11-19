@@ -115,7 +115,7 @@ Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram
 <img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
 
 Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out1 to MIG.clk_ref_i.  
-So now we have the following diagram:
+So now we have the following diagram: <mark>REMOVE ADDITIONAL CLOCK</mark>
 
 <img title="" src="pictures/wizard_added.png" alt="" width="738">
 
