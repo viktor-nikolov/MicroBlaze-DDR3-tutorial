@@ -166,6 +166,8 @@ Let's do a fine-tuning of the MicroBlaze configuration before we continue.
 
 The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in FPGA's local memory is tremendously faster than the DDR3 RAM.
 
+**TODO TODO**
+
 The testing app in this repository is a simple memory read speed test. On a 50 kB array, it runs 11.7 milliseconds when caches are disabled. It runs 0.694 milliseconds from the cache (this is not a typo; it does run only 694 microseconds from the cache).
 
 Double-click on the MicroBlaze and click Next till the cache configuration page.  
@@ -173,11 +175,15 @@ Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of 
 
 <img title="" src="pictures/cache_config.png" alt="" width="679">
 
-Go to the next page for Debug configuration, and set "Number of Write Address Watchpoints" and "Number of Read Address Watchpoints" to 1. This will make debugging a bit easier.
+Go to the next page for Debug configuration, and set "Number of Write Address Watchpoints" and "Number of Read Address Watchpoints" to 1. This will make debugging a bit easier.  
+Finish the configuration wizard by clicking Next.
 
 ## Connecting it together
 
-We are now at the final step.
+Now we create two AXI Interconnects. One will connect the MicroBlaze with DDR3 RAM, and the other will connect the MicroBlaze with peripherals.
+
+- Note: I'm aware that if we click "Run Connection Automation" at this moment, the automation will create the interconnects for us.  
+  The problem is that automation will create [AXI SmartConnect IP](AXI SmartConnect](https://www.xilinx.com/products/intellectual-property/smartconnect.html) between the MicroBlaze and the DDR3 RAM. In my testing of DDR3 RAM read speed AXI SmartConnect resulted in 10% slower performance compared to the "old fashined" AXI Interconnect (interconnect type was the only design change between the tests).
 
 "Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
 
