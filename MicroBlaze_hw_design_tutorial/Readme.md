@@ -192,7 +192,7 @@ Name one of them "perif_interconnect" and the other "ram_interconnect" (you rena
 Double-click on ram_interconnect and configure it to have two Slave and one Master interface. Leave Interconnect Optimization Strategy to Custom.  
 (perif_interconnect was, by default, created to have one Slave and two Master interfaces, which is exactly what we need.)
 
-Connect the two ram_interconnect AXI Slave interfaces to M_AXI_DC and M_AXI_IC interfaces on the MicroBlaze (the order in which you connect them doesn't matter). Connect ram_interconnect master interface to MIG AXI Slave interface.
+Connect the two ram_interconnect AXI Slave interfaces to M_AXI_DC and M_AXI_IC interfaces on the MicroBlaze (the order in which you connect them doesn't matter). Connect ram_interconnect Master interface to MIG AXI Slave interface.
 
 Connect the two perif_interconnect Master interfaces to AXI GPIO and AXI UART Lite. The AXI Slave interface of perif_interconnect should be connected to the M_AXI_DP interface of the MicroBlaze.
 
@@ -200,7 +200,7 @@ Now you shall have the following diagram (I moved IPs around for more clarity):
 
 ![](pictures/interconn_added.png)
 
-*TODO*
+***TODO***
 
 "Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
 
