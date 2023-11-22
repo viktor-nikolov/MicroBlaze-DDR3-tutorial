@@ -36,7 +36,8 @@ Unfortunately, there are two problems:
 
 - The Vitis assumes that we have an input port, which can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
-- We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
+- We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.  
+  We will use the 200 MHz also for clocking the MicroBlaze and other IPs in the design. In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so we will stay on 200 MHz to be safe. 
 
 #### 2. We can't connect the external system clock to MIG directly
 
@@ -106,11 +107,9 @@ Connect CLK100MHZ to BUFG_I and BUFG_O to MIG.sys_clk_i.
 Connect ck_rst to MIG.ck_rst.  
 (We leave ck_a0 unconnected for now.)
 
-Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for the MIG and the 210 MHz clock we will use to clock the MicroBlaze and other IPs.
+Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for the MIG, and as the clock MicroBlaze and other IPs.
 
-Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab. Define the two output clocks as 200 MHz and 210 MHz and set Reset Type Active Low.
-
-- 210 MHz clock for MicroBlaze worked OK in my testing. Maybe you can go a bit higher. Finding a high-frequency clock for a stable design requires some experimenting.
+Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab. Define a single output clock as 200 MHz and set Reset Type Active Low.
 
 <img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
 
