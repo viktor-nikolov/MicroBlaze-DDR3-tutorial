@@ -183,7 +183,24 @@ Finish the configuration wizard by clicking Next.
 Now we create two AXI Interconnects. One will connect the MicroBlaze with DDR3 RAM, and the other will connect the MicroBlaze with peripherals.
 
 - Note: I'm aware that if we click "Run Connection Automation" at this moment, the automation will create the interconnects for us.  
-  The problem is that automation will create [AXI SmartConnect IP](AXI SmartConnect](https://www.xilinx.com/products/intellectual-property/smartconnect.html) between the MicroBlaze and the DDR3 RAM. In my testing of DDR3 RAM read speed AXI SmartConnect resulted in 10% slower performance compared to the "old fashined" AXI Interconnect (interconnect type was the only design change between the tests).
+  The problem is that automation will create [AXI SmartConnect IP](https://www.xilinx.com/products/intellectual-property/smartconnect.html) between the MicroBlaze and the DDR3 RAM. In my testing of DDR3 RAM read speed AXI SmartConnect resulted in 10% slower performance compared to the "old fashioned" AXI Interconnect (interconnect type was the only design change between the tests).
+  I'm sure AXI SmartConnect has some advantages. However, in this particular design on this particular HW, the AXI Interconnect is faster.
+
+Search for "interconnect" in the IP Catalog and drag AXI Interconnect twice to the diagram.  
+Name one of them "perif_interconnect" and the other "ram_interconnect" (you rename an IP in the Sub-block Properties window).
+
+Double-click on ram_interconnect and configure it to have two Slave and one Master interface. Leave Interconnect Optimization Strategy to Custom.  
+(perif_interconnect was, by default, created to have one Slave and two Master interfaces, which is exactly what we need.)
+
+Connect the two ram_interconnect AXI Slave interfaces to M_AXI_DC and M_AXI_IC interfaces on the MicroBlaze (the order you connect them doesn't matter). Connect ram_interconnect master interface to MIG AXI Slave interface.
+
+Connect the two perif_interconnect Master interfaces to AXI GPIO and AXI UART Lite. The AXI Slave interface of perif_interconnect should be connected to M_AXI_DP interface of the MicroBlaze.
+
+Now you shall have the following diagram (I moved IPs around for more clarity):
+
+![](pictures/interconn_added.png)
+
+*TODO*
 
 "Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
 
