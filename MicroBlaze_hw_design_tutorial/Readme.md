@@ -221,7 +221,7 @@ Let me provide a few comments on what we see in the final diagram:
 - It's OK that the ram_interconnect has the Master interface running on 81.25 MHz and Slave interfaces running on 200 MHz. One of the AXI Interconnect features is providing a bridge over two different clock domains.  
   The overall throughput is, of course, limited by the slower of the clocks.
 
-- Reset is done by the peripheral_aresetn outputting from the Processor System Reset IP for the MicroBlaze (rst_clk_wiz_0_200M). The Processor System Reset IP ensures that this reset signal is synchronized with the 200 MHz clock. 
+- Reset is done by the peripheral_aresetn outputting from the Processor System Reset IP for the MicroBlaze (rst_clk_wiz_0_200M). The Processor System Reset IP ensures that this reset signal is synchronized with the 200 MHz clock.   
   The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the clock MIG.ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M).
 
 ## Generating output
