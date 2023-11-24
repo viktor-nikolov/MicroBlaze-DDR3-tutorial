@@ -222,7 +222,7 @@ Let me provide a few comments on what we see in the final diagram:
   The overall throughput is, of course, limited by the slower of the clocks.
 
 - Reset is done by the peripheral_aresetn outputting from the Processor System Reset IP for the MicroBlaze (rst_clk_wiz_0_200M). The Processor System Reset IP ensures that this reset signal is synchronized with the 200 MHz clock.   
-  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the clock MIG.ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M).
+  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the clock MIG.ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M), which also provides the reset signal to the MIG.
 
 ## Generating output
 
@@ -237,4 +237,4 @@ There should be no errors. However, expect one critical warning which says "[Tim
 In this demo, we do not need to worry about timing requirements.
 
 Last but not least, we need to export the hardware specification. It is necessary for the development of the SW app for the MicroBlaze in Vitis IDE.  
-Go to File|Export|Export Hardware, select "Include Bitstream"
+Go to File|Export|Export Hardware, select "Include Bitstream".
