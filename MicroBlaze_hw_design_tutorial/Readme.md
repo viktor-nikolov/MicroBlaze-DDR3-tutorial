@@ -200,11 +200,16 @@ Now you shall have the following diagram (I moved IPs around for more clarity):
 
 ![](pictures/interconn_added.png)
 
-Now we can let the automation do the rest of the work.
+Now we can let the automation do the rest of the work, i.e., connect the clock and reset signals.
 
 "Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged (the automation will connect the clock and reset signals based on AXI connections we made), and click OK.
 
-Another Vivado magic happens, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
+Another Vivado magic happens, and we now have an almost final diagram.
+
+The last step is to connect MIG.aresetn with ram_interconnect.M00_ARESETN manually (this makes both aresetn signals connected to peripheral_aresetn of a new Processor System Reset IP, which the automation created).  
+The Connection Automation didn't do this last connection for me.
+
+I moved IPs around for more clarity before I took this final snapshot:
 
 ![](pictures/final_diagram.png)
 
@@ -213,11 +218,16 @@ Let me provide a few comments on what we see in the final diagram:
 - Everything is clocked by the 200 MHz clock from the Clocking Wizard except the ram_interconnect AXI Master interface, i.e., the interface connecting ram_interconnect and MIG.  
   This interface must be clocked by the output ui_clk from the MIG (in our case it is ¼ of the DDR3 RAM clock, i.e. 81.25 MHz).
 
-- 
+- It's OK that the ram_interconnect has the Master interface running on 81.25 MHz and Slave interfaces running on 200 MHz. One of the AXI Interconnect features is providing a bridge over two different clock domains.  
+  The overall throughput is, of course, limited by the slower of the clocks.
+
+- Reset is done by the peripheral_aresetn outputting from the Processor System Reset IP for the MicroBlaze (rst_clk_wiz_0_200M). The Processor System Reset IP ensures that this reset signal is synchronized with the 200 MHz clock. 
+  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the clock MIG.ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M).
 
 ## Generating output
 
-To make sure that nothing was missed, click the Validate Design button in the toolbar of the diagram window (or press F6). 
+To make sure that nothing was missed, click the Validate Design button in the toolbar of the diagram window (or press F6).  
+You will probably get a message that there are unassigned address segments. Click Yes for auto-assigning them.
 
 HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, right-click on "system", select "Create HDL Wrapper", and select "Let Vivado manage wrapper".
 
