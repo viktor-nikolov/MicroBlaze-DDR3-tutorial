@@ -200,9 +200,9 @@ Now you shall have the following diagram (I moved IPs around for more clarity):
 
 ![](pictures/interconn_added.png)
 
-***TODO***
+Now we can let the automation do the rest of the work.
 
-"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged, and click OK.
+"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged (the automation will connect clock and reset signals based on AXI connections we made), and click OK.
 
 Another Vivado magic happens, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
 
