@@ -147,9 +147,9 @@ Then is the local memory setting, i.e. the memory on the Artix-7 FPGA.
 All this demo is based on configuring MicroBlaze to use the DDR3 memory (which is much bigger in size than the memory available on the FPGA chip). The demo app will be running in the DDR3 memory.  
 However, I recommend selecting 16kB of the local memory. This is for future use. When you decide to load the FPGA configuration and MicroBlaze app from the flash (like on a production device), you will need the local memory to store the MicroBlaze bootloader, which will load the app from the flash to DDR3 memory. See this tutorial on the topic: [MicroBlaze SREC SPI bootloader](https://shadowcode.io/microblaze-srec-spi-bootloader-hardware/).
 
-We don't need ECC and "Debug Only" Debug Module will be sufficient.
+We don't need ECC, and the "Debug Only" Debug Module will be sufficient.
 
-Make sure that "Peripheral AXI Port" is enabled.
+Make sure that the "Peripheral AXI Port" is enabled.
 
 Disable Interrupt Controller; we won't be using interrupts in this demo. If needed, it can be added to the design later.
 
