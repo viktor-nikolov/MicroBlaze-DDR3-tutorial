@@ -202,13 +202,18 @@ Now you shall have the following diagram (I moved IPs around for more clarity):
 
 Now we can let the automation do the rest of the work.
 
-"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged (the automation will connect clock and reset signals based on AXI connections we made), and click OK.
+"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged (the automation will connect the clock and reset signals based on AXI connections we made), and click OK.
 
 Another Vivado magic happens, and we now have the final diagram. I moved IPs around for more clarity before I took this snapshot:
 
 ![](pictures/final_diagram.png)
 
 Let me provide a few comments on what we see in the final diagram:
+
+- Everything is clocked by the 200 MHz clock from the Clocking Wizard except the ram_interconnect AXI Master interface, i.e., the interface connecting ram_interconnect and MIG.  
+  This interface must be clocked by the output ui_clk from the MIG (in our case it is ¼ of the DDR3 RAM clock, i.e. 81.25 MHz).
+
+- 
 
 ## Generating output
 
