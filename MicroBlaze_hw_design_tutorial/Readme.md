@@ -260,3 +260,5 @@ In this demo, we do not need to worry about timing requirements.
 
 Last but not least, we need to export the hardware specification. It is necessary for the development of the SW app for the MicroBlaze in Vitis IDE.  
 Go to File|Export|Export Hardware, select "Include Bitstream".
+
+## Project files
