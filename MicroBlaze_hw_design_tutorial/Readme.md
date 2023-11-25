@@ -1,4 +1,4 @@
-# MicroBlaze with DDR RAM on Arty A7
+# Tutorial: MicroBlaze with DDR3 RAM on Arty A7
 
 This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1.
 
@@ -172,7 +172,7 @@ Make sure that the "Peripheral AXI Port" is enabled.
 
 Disable Interrupt Controller; we won't be using interrupts in this demo. If needed, it can be added to the design later.
 
-We will use the 200 MHz /clk_wiz_0/clk_out1 for MicroBlaze, select it as the Clock Connection.
+We will use the clock /clk_wiz_0/clk_out1 for MicroBlaze, select it as the Clock Connection.
 
 <img title="" src="pictures/block_automation.png" alt="" width="600">
 
@@ -190,12 +190,14 @@ The performance of the app running on MicroBlaze is totally dependent on the amo
 The testing app in this repository is a simple memory read speed test. On a 50 kB array, it runs 11.7 milliseconds when caches are disabled. It runs 0.694 milliseconds from the cache (this is not a typo; it does run only 694 microseconds from the cache).
 
 Double-click on the MicroBlaze and click Next till the cache configuration page.  
-Increase instruction cache to 16 kB, and data cache to 32 kB. Set the Number of Victims to 8.
+Increase instruction cache to 16 kB and data cache to 32 kB. Set the Line Length to 8 and the Number of Victims to 8.
 
 <img title="" src="pictures/cache_config.png" alt="" width="679">
 
 Go to the next page for Debug configuration, and set "Number of Write Address Watchpoints" and "Number of Read Address Watchpoints" to 1. This will make debugging a bit easier.  
 Finish the configuration wizard by clicking Next.
+
+**Do not run Connection Automation yet.**
 
 ## Connecting it together
 
