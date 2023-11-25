@@ -2,6 +2,8 @@
 
 This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1.
 
+Most of the steps in this tutorial can be used also for MicroBlaze DDR3 design on other boards.
+
 ## Memory Interface Generator configuration and connections
 
 Start Vivado 2023.1. Click Create Project. Click Next.  
@@ -52,7 +54,8 @@ Let's make the needed changes.
 Delete ports clk_ref_i and sys_clk_i.  
 (The port ddr3_sdram is OK. It represents connection to the DDR3 chip on the board and it was correctly configured by the automation.)
 
-We must re-synthetize the MIG in order to get rid of automatically generated configuration related to sys_clk_i.
+> [!IMPORTANT]
+> We must re-synthetize the MIG in order to get rid of automatically generated configuration related to sys_clk_i. If we didn't do it, we would get critical warnings or errors during the Implementation.
 
 Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period was configured.)  
 Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
@@ -111,6 +114,7 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 We will use the 200 MHz also for clocking the MicroBlaze and other IPs in the design. In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so we will stay on 200 MHz to be safe.
 
 > [!IMPORTANT]
+
 > The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "try and error" testing.  
 > For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both MIG Reference Clock and MicroBlaze (including peripherals), the design worked fine with MicroBlaze caches disabled, but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to MIG Reference Clock, the other to the MicroBlaze and peripherals) everything worked fine. I'm not able to explain what was the issue when a single source clock was used.
 
