@@ -31,16 +31,16 @@ Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to 
 <img title="" src="pictures/mig_added.png" alt="" width="477">
 
 > [!TIP]
-> In case you are using other board than Arty A7 and your board doesn't come with proper board files, you would need to drag the MIG to the block design from the IP Catalog and configure it manually based on documentation available for your board.  
-> The rest of this tutorial is valid also for a MIG configured manually.
+> In case you are using a board other than Arty A7 and your board doesn't come with proper board files, you would need to drag the MIG to the block design from the IP Catalog and configure it manually based on the documentation available for your board.  
+> The rest of this tutorial is also valid for a MIG configured manually.
 
-Unfortunately, there are two problems with the MIG created by the Vivado automation:
+Unfortunately, there are two problems with the MIG just created by the Vivado automation:
 
 #### 1. MIG input Reference Clock must be 200 MHz
 
 - The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
 
-- The Vitis assumes that we have an input port, which can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
+- The Vitis assumes that we have an input port that can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
 - We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
 
@@ -56,13 +56,16 @@ Unfortunately, there are two problems with the MIG created by the Vivado automat
 Let's make the needed changes.
 
 Delete ports clk_ref_i and sys_clk_i.  
-(The port ddr3_sdram is OK. It represents connection to the DDR3 chip on the board and it was correctly configured by the automation.)
+(The port ddr3_sdram is OK. It represents a connection to the DDR3 chip on the board and it was correctly configured by the automation.)
 
 > [!IMPORTANT]
 > We must re-synthetize the MIG in order to get rid of automatically generated configuration related to sys_clk_i. If we didn't do it, we would get critical warnings or errors during the Implementation.
 
-Double-click the MIG and click Next till you get to the "Memory Options C0" page. (Notice that the correct 100 MHz Input Clock Period was configured.)  
-Disable "Select Additional Clocks". For MicroBlaze and rest of the IPs we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
+Double-click the MIG and click Next till you get to the "Memory Options C0" page.
+
+- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 325 MHz as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than maximal possible 333 MHz clock of the DDR3 memory used on Arty A7, nevertheless the performance difference is negligible.
+
+Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
 
 <img src="pictures/mig_update.png" title="" alt="" width="600">
 
