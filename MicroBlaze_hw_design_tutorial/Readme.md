@@ -117,7 +117,11 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 > In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so I will stay on 200 MHz in this demo to be safe.  
 > Please be aware that if you modify my design and face issues, the first troubleshooting step is to lower the MicroBlaze frequency.
 
-Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab. Define a single output clock as 200 MHz and set Reset Type Active Low.
+Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab.
+
+For the reasons described earlier, we will create two output clocks of the same 200 MHz frequency. ck_out1 will clock the MicroBlaze and all other IPs except the MIG. The frequency of the ck_out1 can be lowered if any stability issues occur. ck_out2 will clock the MIG Reference Clock and must always be kept on 200 MHz.
+
+Set Reset Type Active Low because our reset input ck_rst is active low.
 
 <img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
 
