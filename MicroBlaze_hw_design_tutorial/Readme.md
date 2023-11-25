@@ -132,7 +132,7 @@ Set Reset Type Active Low because our reset input ck_rst is active low.
 
 <img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
 
-Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out1 to MIG.clk_ref_i.  
+Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out2 to MIG.clk_ref_i.  
 So now we have the following diagram:
 
 <img title="" src="pictures/wizard_added.png" alt="" width="738">
