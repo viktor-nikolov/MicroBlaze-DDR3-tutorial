@@ -114,8 +114,7 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 We will use the 200 MHz also for clocking the MicroBlaze and other IPs in the design. In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so we will stay on 200 MHz to be safe.
 
 > [!IMPORTANT]
-
-> The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "try and error" testing.  
+> > The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "try and error" testing.  
 > For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both MIG Reference Clock and MicroBlaze (including peripherals), the design worked fine with MicroBlaze caches disabled, but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to MIG Reference Clock, the other to the MicroBlaze and peripherals) everything worked fine. I'm not able to explain what was the issue when a single source clock was used.
 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab. Define a single output clock as 200 MHz and set Reset Type Active Low.
