@@ -112,8 +112,7 @@ Connect ck_rst to MIG.ck_rst.
 Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for the MIG, and the clock for the MicroBlaze and other IPs.
 
 > [!IMPORTANT]
-
-> The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "try and error" testing.  
+> > The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "try and error" testing.  
 > For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both MIG Reference Clock and the MicroBlaze (including peripherals), the design worked fine with MicroBlaze caches disabled but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to the MIG Reference Clock, the other to the MicroBlaze and peripherals), everything worked fine. I'm not able to explain what the issue was when a single source clock was used.  
 > In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so I will stay on 200 MHz in this demo to be safe.  
 > Please be aware that if you modify my design and face issues, the first troubleshooting step is to lower the MicroBlaze frequency.
