@@ -32,6 +32,7 @@ Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to 
 
 > [!TIP]
 > In case you are using other board than Arty A7 and your board doesn't come with proper board files, you would need to drag the MIG to the block design from the IP Catalog and configure it manually based on documentation available for your board.
+> 
 > The rest of this tutorial is valid also for a MIG configured manually.
 
 Unfortunately, there are two problems with the MIG created by the Vivado automation:
