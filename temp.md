@@ -1,8 +1,6 @@
 # Demo of MicroBlaze using DDR3 RAM on Arty A7
 
-This is a demo HW design of [MicroBlaze](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on a [Digilent Arty A7 board](https://digilent.com/shop/arty-a7-100t-artix-7-fpga-development-board/).
 
-Included application is a benchmarking tool for memory read speed.
 
 The design was done in Vivado 2023.1 and Vitis 2023.1.
 
