@@ -276,7 +276,7 @@ The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic
 
 A design with a 166.67 MHz internally generated MIG input System Clock may work (it worked during my tests). But it is not guaranteed to work, especially when the FPGA design gets more complex.
 
-I therefore did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.
+I therefore did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.  
 Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210.
 
 The performance difference of the slightly lower 325 MHz DDR3 clock is negligible. With instruction and data caches disabled, I measured memory read performance only 0.5% lower compared to the 333.3 MHz DDR3 clock. With caches enabled, which should be the standard setup, there is virtually no performance difference.
