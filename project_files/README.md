@@ -14,12 +14,10 @@ The design was made in Vivado 2023.1 and tested on Arty A7-35 (which is no longe
 The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vitis 2023.1 workspace of the benchmarking app.
 
 > [!IMPORTANT]
-> You need an oscilloscope in order to make use of the app.
-> 
+> You need an oscilloscope in order to make use of the app.  
 > The app provides no output to the console.
 > 
-> It drives the Arty A7 pin marked A0 high before the testing loop is executed. The pin is driven low after the loop finishes. Testing loops are repeated indefinitely.
-> 
+> It drives the Arty A7 pin marked A0 high before the testing loop is executed. The pin is driven low after the loop finishes. Testing loops are repeated indefinitely.  
 > You therefore need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
 
 dddd
