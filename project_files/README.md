@@ -25,7 +25,7 @@ In order to remove any dependency on compiler optimization I wrote the critical 
 This is an excerpt from [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
 
 ```
-/* Sequentially read content of buff into a register */
+/* Sequentially read content of array buff into a register */
 asm volatile (
 	"xor r0, r0, r0      \n\t"  //make sure r0 is zero
 	"addi r10, %0        \n\t"  //load address of buff to r10
@@ -45,3 +45,4 @@ asm volatile (
 	: "r0","r10","r11","r12","r13","cc" //clobbered registers + CPU condition codes
 );
 ```
+dddd
