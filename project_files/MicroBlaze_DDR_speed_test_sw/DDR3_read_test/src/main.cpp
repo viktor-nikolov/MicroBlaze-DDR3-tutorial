@@ -74,20 +74,20 @@ volatile uint32_t buff[BUFF_WORDS];
 
 int initialize()
 {
-    /************ Initialize instruction and data caches ************/
+	/************ Initialize instruction and data caches ************/
 
 #if defined(XPAR_MICROBLAZE_USE_ICACHE) && ! defined(CACHES_DISABLED)
-    Xil_ICacheEnable();
+	Xil_ICacheEnable();
 #else
-    #warning "Instruction cache is not active!"
+	#warning "Instruction cache is not active!"
 #endif
 #if defined(XPAR_MICROBLAZE_USE_DCACHE) && ! defined(CACHES_DISABLED)
-    Xil_DCacheEnable();
+	Xil_DCacheEnable();
 #else
-    #warning "Data cache is not active!"
+	#warning "Data cache is not active!"
 #endif
 
-    /************ Initialize GPI ************/
+	/************ Initialize GPI ************/
 	int Status;
 
 	Status = XGpio_Initialize(&GpioInstance, GPIO_DEVICE_ID);
@@ -119,34 +119,34 @@ void __attribute__((optimize("O0"))) fill_buff() {
 }
 
 int main() {
-    if( initialize() != XST_SUCCESS ) //Initialize GPIO and caches
-    	return 1;
+	if( initialize() != XST_SUCCESS ) //Initialize GPIO and caches
+		return 1;
 
-    fill_buff(); //Fill the array buff
+	fill_buff(); //Fill the array buff
 
-    while( 1 ) {
-    	/* The pin goes high so we can measure duration of the following assembly code by an oscilloscope  */
-    	XGpio_DiscreteSet(&GpioInstance, 1 /*Channel*/, GPIO_PIN_MASK /*Mask*/ );
+	while( 1 ) {
+		/* The pin goes high so we can measure duration of the following assembly code by an oscilloscope  */
+		XGpio_DiscreteSet(&GpioInstance, 1 /*Channel*/, GPIO_PIN_MASK /*Mask*/ );
 
-    	/* Sequentially read content of buff into a register */
-    	asm volatile (
+		/* Sequentially read content of buff into a register */
+		asm volatile (
 			"xor r0, r0, r0      \n\t"  //make sure r0 is zero
 			"addi r10, %0        \n\t"  //[1] load address of buff to r10
-  			"addi r11, r0, %1    \n\t"  //[2] load value of BUFF_WORDS/4 to r11
-        	"addi r13, r0, -1    \n\t"  //load value -1 to r13
+			"addi r11, r0, %1    \n\t"  //[2] load value of BUFF_WORDS/4 to r11
+			"addi r13, r0, -1    \n\t"  //load value -1 to r13
 			"1:                  \n\t"  //label for branching
-    		//Load four 32b words from memory:
-   			"lwi  r12, r10, 0    \n\t"  //load 32b word from address r10 to r12
+			//Load four 32b words from memory:
+			"lwi  r12, r10, 0    \n\t"  //load 32b word from address r10 to r12
 			"lwi  r12, r10, 4    \n\t"  //load 32b word from address r10+4 to r12
 			"lwi  r12, r10, 8    \n\t"  //load 32b word from address r10+8 to r12
 			"lwi  r12, r10, 12   \n\t"  //load 32b word from address r10+14 to r12
-   			"addi r10, r10, 4*4  \n\t"  //increment address in r10 to next 4 words
-        	"add  r11, r11, r13  \n\t"  //decrement counter in r11 (r13 == -1)
-     		"bgti r11, 1b        \n\t"  //if r11 > 0 then branch backward to label 1
+			"addi r10, r10, 4*4  \n\t"  //increment address in r10 to next 4 words
+			"add  r11, r11, r13  \n\t"  //decrement counter in r11 (r13 == -1)
+			"bgti r11, 1b        \n\t"  //if r11 > 0 then branch backward to label 1
 			:                                   //no output operands
 			: "m" (buff), "i" (BUFF_WORDS/4)    //input operands
 			: "r0","r10","r11","r12","r13","cc" //clobbered registers + CPU condition codes
-        );
+		);
         /* Note regarding instructions [1] and [2]:
          *
          * I assumed that [1] should read "addi r10, r0, %0". However this syntax wouldn't compile.
