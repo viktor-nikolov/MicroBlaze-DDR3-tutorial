@@ -26,7 +26,7 @@ An empty block design window opens.
 
 The Arty A7 comes with a relatively well-prepared board file, which allows steps in the HW design to be automated in Vivado. However, as we will see later, some manual tweaks are still needed because the automation is not perfect.
 
-Let's start with the most complicated part, the Memory Interface Generator (MIG). This is an IP provided by Xilinx, which will generate a memory controller for the DDR3 installed on Arty A7.
+Let's start with the most complicated part, the Memory Interface Generator (MIG). This is an IP provided by Xilinx, which will generate a memory controller for the DDR3 SDRAM installed on Arty A7.
 
 Open the Board window (Window|Board). There is an item "DDR3 SDRAM". Drag it to the empty board design. Vivado does its magic and configures the MIG for the Arty A7 DDR3 memory based on settings in the board file. The following IP appears in the design:
 
