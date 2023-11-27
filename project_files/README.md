@@ -21,7 +21,7 @@ The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vit
 > You therefore need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
 
 Compilers do not like loops, which read data and do nothing with them. Such code is discarded by a compiler.  
-In order to remove any dependency on compiler optimization I wrote the critical piece of code in assembly.  
+In order to remove any dependency on compiler optimization I wrote the critical piece of code in MicroBlaze assembly.  
 This is an excerpt from [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
 
 ```
@@ -46,4 +46,5 @@ asm volatile (
 );
 ```
 
-dddd
+> [!NOTE]
+> Even though the critical benchmarking loop is written in assembly, do compile the whole project in the Release Configuration (i.e., with optimization set to -O2 or -O3) so the surrounding code is optimized as well.
