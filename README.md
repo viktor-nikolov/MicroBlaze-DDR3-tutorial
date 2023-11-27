@@ -264,9 +264,9 @@ Go to File|Export|Export Hardware, select "Include Bitstream".
 
 ## Project files
 
-**TODO TODO**
+The directory [project_files](project_files) contains the HW design created by this tutorial and an application, which benchmarks memory read speed.
 
-The directory 
+Sead the directory's [readme file](project_files/README.md) for details.
 
 ## Differences from the Arty A7 documentation
 
