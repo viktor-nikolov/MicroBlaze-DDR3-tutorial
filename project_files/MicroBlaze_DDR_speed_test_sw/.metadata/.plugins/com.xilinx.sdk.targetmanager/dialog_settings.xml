@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="DDR3_read_test_system-bitFile" value="${project_loc:DDR3_read_test}/_ide/bitstream/system_wrapper.bit"/>
+	<item key="DDR3_read_test_system-bmmFile" value="${project_loc:DDR3_read_test}/_ide/bitstream/system_wrapper.mmi"/>
+	<item key="DDR3_read_test_system-target" value="Local"/>
+	<item key="DDR3_read_test_system-device" value="Auto Detect"/>
+	<item key="DDR3_read_test_system-partial_bit" value="false"/>
+	<item key="DDR3_read_test_system-skip_rev_check" value="false"/>
+	<item key="programfpga.sdxproject" value="DDR3_read_test_system"/>
+	<item key="DDR3_read_test_system-microblaze_0-initElf" value="bootloop"/>
+	<item key="devices_info_Local" value="{&quot;cables&quot;:[{&quot;name&quot;:&quot;Digilent Arty A7-35T 210319B2683AA&quot;,&quot;indexContextMap&quot;:{&quot;2&quot;:&quot;jsn-Arty A7-35T-210319B2683AA-0362d093-0&quot;}}]}"/>
+</section>

@@ -1,0 +1,101 @@
+{
+  "schema": "xilinx.com:schema:json_instance:1.0",
+  "ip_inst": {
+    "xci_name": "system_util_ds_buf_0_0",
+    "cell_name": "util_ds_buf_0",
+    "component_reference": "xilinx.com:ip:util_ds_buf:2.2",
+    "ip_revision": "30",
+    "gen_directory": "../../../../../../ArtyA7_MicroBlaze_demo_hw.gen/sources_1/bd/system/ip/system_util_ds_buf_0_0",
+    "parameters": {
+      "component_parameters": {
+        "C_SIZE": [ { "value": "1", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "C_BUF_TYPE": [ { "value": "BUFG", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
+        "Component_Name": [ { "value": "system_util_ds_buf_0_0", "resolve_type": "user", "usage": "all" } ],
+        "USE_BOARD_FLOW": [ { "value": "false", "resolve_type": "user", "format": "bool", "usage": "all" } ],
+        "BOARD_PARAMETER": [ { "value": " ", "resolve_type": "user", "usage": "all" } ],
+        "FREQ_HZ": [ { "value": "156250000", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
+        "DIFF_CLK_IN_BOARD_INTERFACE": [ { "value": "Custom", "resolve_type": "user", "usage": "all" } ],
+        "C_BUFGCE_DIV": [ { "value": "1", "resolve_type": "user", "format": "long", "enabled": false, "usage": "all" } ],
+        "C_BUFG_GT_SYNC": [ { "value": "false", "resolve_type": "user", "format": "bool", "enabled": false, "usage": "all" } ],
+        "C_OBUFDS_GTE5_ADV": [ { "value": "\"00\"", "resolve_type": "user", "format": "bitString", "enabled": false, "usage": "all" } ],
+        "C_REFCLK_ICNTL_TX": [ { "value": "\"00000\"", "resolve_type": "user", "format": "bitString", "enabled": false, "usage": "all" } ]
+      },
+      "model_parameters": {
+        "C_BUF_TYPE": [ { "value": "BUFG", "resolve_type": "generated", "usage": "all" } ],
+        "C_SIZE": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_BUFGCE_DIV": [ { "value": "1", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_BUFG_GT_SYNC": [ { "value": "0", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "C_SIM_DEVICE": [ { "value": "VERSAL_AI_CORE_ES1", "resolve_type": "generated", "usage": "all" } ],
+        "C_OBUFDS_GTE5_ADV": [ { "value": "\"00\"", "resolve_type": "generated", "format": "bitString", "usage": "all" } ],
+        "C_REFCLK_ICNTL_TX": [ { "value": "\"00000\"", "resolve_type": "generated", "format": "bitString", "usage": "all" } ]
+      },
+      "project_parameters": {
+        "ARCHITECTURE": [ { "value": "artix7" } ],
+        "BASE_BOARD_PART": [ { "value": "digilentinc.com:arty-a7-35:part0:1.1" } ],
+        "BOARD_CONNECTIONS": [ { "value": "" } ],
+        "DEVICE": [ { "value": "xc7a35ti" } ],
+        "PACKAGE": [ { "value": "csg324" } ],
+        "PREFHDL": [ { "value": "VERILOG" } ],
+        "SILICON_REVISION": [ { "value": "" } ],
+        "SIMULATOR_LANGUAGE": [ { "value": "MIXED" } ],
+        "SPEEDGRADE": [ { "value": "-1L" } ],
+        "STATIC_POWER": [ { "value": "" } ],
+        "TEMPERATURE_GRADE": [ { "value": "I" } ]
+      },
+      "runtime_parameters": {
+        "IPCONTEXT": [ { "value": "IP_Integrator" } ],
+        "IPREVISION": [ { "value": "30" } ],
+        "MANAGED": [ { "value": "TRUE" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../ArtyA7_MicroBlaze_demo_hw.gen/sources_1/bd/system/ip/system_util_ds_buf_0_0" } ],
+        "SELECTEDSIMMODEL": [ { "value": "" } ],
+        "SHAREDDIR": [ { "value": "../../ipshared" } ],
+        "SWVERSION": [ { "value": "2023.1" } ],
+        "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
+      }
+    },
+    "boundary": {
+      "ports": {
+        "BUFG_I": [ { "direction": "in", "size_left": "0", "size_right": "0", "driver_value": "0" } ],
+        "BUFG_O": [ { "direction": "out", "size_left": "0", "size_right": "0" } ]
+      },
+      "interfaces": {
+        "BUFG_I": {
+          "vlnv": "xilinx.com:signal:clock:1.0",
+          "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
+          "mode": "slave",
+          "parameters": {
+            "FREQ_HZ": [ { "value": "100000000", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "PHASE": [ { "value": "0.0", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "system_CLK100MHZ", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_BUSIF": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_PORT": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_RESET": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "CLK": [ { "physical_name": "BUFG_I" } ]
+          }
+        },
+        "BUFG_O": {
+          "vlnv": "xilinx.com:signal:clock:1.0",
+          "abstraction_type": "xilinx.com:signal:clock_rtl:1.0",
+          "mode": "master",
+          "parameters": {
+            "FREQ_HZ": [ { "value": "100000000", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "FREQ_TOLERANCE_HZ": [ { "value": "0", "value_permission": "bd", "resolve_type": "generated", "format": "long", "is_ips_inferred": true, "is_static_object": false } ],
+            "PHASE": [ { "value": "0.0", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "format": "float", "is_ips_inferred": true, "is_static_object": false } ],
+            "CLK_DOMAIN": [ { "value": "system_CLK100MHZ", "value_src": "propagated", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_BUSIF": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_PORT": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "ASSOCIATED_RESET": [ { "value": "", "value_permission": "bd", "resolve_type": "generated", "is_ips_inferred": true, "is_static_object": false } ],
+            "INSERT_VIP": [ { "value": "0", "resolve_type": "user", "format": "long", "usage": "simulation.rtl", "is_ips_inferred": true, "is_static_object": false } ]
+          },
+          "port_maps": {
+            "CLK": [ { "physical_name": "BUFG_O" } ]
+          }
+        }
+      }
+    }
+  }
+}
