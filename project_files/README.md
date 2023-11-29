@@ -24,10 +24,11 @@ The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vit
 > The app will, by default, run with instruction and data cache disabled, in order to measure DD3 RAM read speed.
 > 
 > To do the measurement with caches enabled, comment the following line in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
-> 
-> ```
-> 
-> ```
+
+```
+//Comment out this macro in order to run the test with instruction and data cache enabled
+#define CACHES_DISABLED
+```
 
 Compilers do not like loops, which read data and do nothing with them. Such code is discarded by a compiler.  
 In order to remove any dependency on compiler optimization I wrote the critical piece of code in MicroBlaze assembly.  
