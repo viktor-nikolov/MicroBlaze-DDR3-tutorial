@@ -20,6 +20,15 @@ The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vit
 > It drives the Arty A7 pin marked A0 high before the testing loop is executed. The pin is driven low after the loop finishes. Testing loops are repeated indefinitely.  
 > You therefore need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
 
+> [!TIP]
+> The app will, by default, run with instruction and data cache disabled, in order to measure DD3 RAM read speed.
+> 
+> To do the measurement with caches enabled, comment the following line in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
+> 
+> ```
+> 
+> ```
+
 Compilers do not like loops, which read data and do nothing with them. Such code is discarded by a compiler.  
 In order to remove any dependency on compiler optimization I wrote the critical piece of code in MicroBlaze assembly.  
 This is an excerpt from [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
