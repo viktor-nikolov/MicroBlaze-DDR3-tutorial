@@ -65,4 +65,4 @@ I made the following measurements on Arty A7-35 using the exact HW design and SW
 | test buffer size                      | duration with caches disabled | duration with caches enabled |
 | ------------------------------------- | ----------------------------- | ---------------------------- |
 | 30 kB<br/>(fits into the 32 kB cache) | 7.24 ms                       | 0.088 ms                     |
-| 50 kB                                 | 12.05 ms                      |                              |
+| 50 kB                                 | 12.05 ms                      | 0.689 ms                     |
