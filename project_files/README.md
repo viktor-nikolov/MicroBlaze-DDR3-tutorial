@@ -55,7 +55,7 @@ asm volatile (
 );
 ```
 
-> [!NOTE]
+> [!IMPORTANT]
 > Even though the critical benchmarking loop is written in assembly, do compile the whole project in the Release Configuration (i.e., with optimization set to -O2 or -O3) so the surrounding code is optimized as well.
 
 ## Measurements
