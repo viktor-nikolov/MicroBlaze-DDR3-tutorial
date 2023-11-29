@@ -81,7 +81,7 @@ Now we will manually create the ports we need.
 
 Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from the [Digilent GitHub](https://github.com/Digilent). The .xdc file for A7-100 works also for A7-35. The pin connection is the same.
 
-- In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as cka6..11 on my specimen of A7-35. Do use A7-100 .xdc.
+- In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as ck_a6..11 on my specimen of A7-35. Do use A7-100 .xdc.
 
 Add Arty-A7-100-Master.xdc as the constraints file to Vivado (window Sources, "+" button). Do not forget to check "Copy constraints file into project". We want to have a copy of the file in the project because we are going to edit it.
 
@@ -125,7 +125,7 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 > For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both the MIG Reference Clock and the MicroBlaze (including peripherals), the design worked fine with MicroBlaze instruction and data caches disabled but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to the MIG Reference Clock, the other to the MicroBlaze and peripherals), everything worked fine. I'm not able to explain what the issue was when a single source clock was used.  
 > In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so I will stay on 200 MHz in this demo to be safe.  
 > Please be aware that if you modify my design and face issues, the first troubleshooting step is to lower the MicroBlaze frequency.  
-> Another trick is to clock the MicroBlaze and peripherals from a separate Clocking Wizard, which is not used for anything else.
+> Another troubleshooting trick is to clock the MicroBlaze and peripherals from a separate Clocking Wizard, which is not used for anything else.
 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab.
 
@@ -144,7 +144,7 @@ So now we have the following diagram:
 
 We will use only USB UART and GPIO in this demo design. Nevertheless, other peripherals (e.g., SPI) can be added to the design in a similar manner.
 
-For UAT we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART lite IP and corresponding output port.
+For UAT we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART lite IP and corresponding input/output port.
 
 We add GPIO manually. Search for "gpio" in the IP Catalog and drag AXI GPIO to the diagram. Double-click it for configuration. We need just one output GPIO pin for our demo, so we select "All Outputs" and set "GPIO Width" to 1:
 
@@ -207,7 +207,7 @@ Now we create two AXI Interconnects. One will connect the MicroBlaze with DDR3 R
 > [!TIP]
 > I'm aware that if we click "Run Connection Automation" at this moment, the automation will create the interconnects for us.  
 > The problem is that automation will create [AXI SmartConnect](https://www.xilinx.com/products/intellectual-property/smartconnect.html) between the MicroBlaze and the DDR3 RAM. In my testing of DDR3 RAM read speed AXI SmartConnect resulted in 10% slower performance compared to the "old fashioned" AXI Interconnect (interconnect type was the only design change between the tests).  
-> I'm sure AXI SmartConnect has some advantages. However, in this particular design on this particular HW, the AXI Interconnect is faster.
+> I'm sure AXI SmartConnect has some advantages. However, in this particular design on this particular board, the AXI Interconnect is faster.
 
 Search for "interconnect" in the IP Catalog and drag AXI Interconnect twice to the diagram.  
 Name one of them "perif_interconnect" and the other "ram_interconnect" (you rename an IP in the Sub-block Properties window).
@@ -266,7 +266,7 @@ Go to File|Export|Export Hardware, select "Include Bitstream".
 
 The directory [project_files](project_files) contains the HW design created by this tutorial and an application, which benchmarks memory read speed.
 
-Sead the directory's [readme file](project_files/README.md) for details.
+See the directory's [readme file](project_files/README.md) for details.
 
 ## Differences from the Arty A7 documentation
 
