@@ -22,7 +22,6 @@ The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vit
 
 > [!TIP]
 > The app will, by default, run with instruction and data cache disabled, in order to measure DD3 RAM read speed.
-> 
 > To do the measurement with caches enabled, comment the following line in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
 
 ```
