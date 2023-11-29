@@ -21,7 +21,7 @@ The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vit
 > You therefore need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
 
 > [!TIP]
-> The app will, by default, run with instruction and data cache disabled, in order to measure DD3 RAM read speed.
+> The app will, by default, run with instruction and data cache disabled, in order to measure DD3 RAM read speed.  
 > To do the measurement with caches enabled, comment the following line in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
 
 ```
