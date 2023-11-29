@@ -57,3 +57,12 @@ asm volatile (
 
 > [!NOTE]
 > Even though the critical benchmarking loop is written in assembly, do compile the whole project in the Release Configuration (i.e., with optimization set to -O2 or -O3) so the surrounding code is optimized as well.
+
+## Measurements
+
+I made the following measurements on Arty A7-35 using the exact HW design and SW app published in this repository:
+
+| test buffer size                      | duration with caches disabled | duration with caches enabled |
+| ------------------------------------- | ----------------------------- | ---------------------------- |
+| 30 kB<br/>(fits into the 32 kB cache) | 7.24 ms                       | 0.088 ms                     |
+| 50 kB                                 | 12.05 ms                      |                              |
