@@ -131,7 +131,7 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it.  
 Go to the Clocking Options tab and select Source "No buffer" in the Input Clock Information section because the input clock is already buffered by BUFG.
 
-<img src="pictures/clocking_wizard1.png" title="" alt="" width="567">
+<img src="pictures/clocking_wizard1.png" title="" alt="" width="600">
 
 Then go to the Output Clocks tab.
 
