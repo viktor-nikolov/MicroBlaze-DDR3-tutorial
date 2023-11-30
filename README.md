@@ -81,9 +81,8 @@ Then finish the MIG configuration wizard without further changes (note that you 
 
 Now we will manually create the ports we need.
 
-Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from the [Digilent GitHub](https://github.com/Digilent). The .xdc file for A7-100 works also for A7-35. The pin connection is the same.
-
-- In fact, the A7-35 .xdc on GitHub seems to be wrong to me. It differs in the names of pins ck_io20..25, which are printed as ck_a6..11 on my specimen of A7-35. Do use A7-100 .xdc.
+Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from the [Digilent GitHub](https://github.com/Digilent).  
+The .xdc file for A7-100 works also for A7-35. The pin connections are the same. A7-100 and A7-35 .xdc files differ only slightly in some comments.
 
 Add Arty-A7-100-Master.xdc as the constraints file to Vivado (window Sources, "+" button). Do not forget to check "Copy constraints file into project". We want to have a copy of the file in the project because we are going to edit it.
 
@@ -117,7 +116,7 @@ Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Do
 <img src="pictures/bufg.png" title="" alt="" width="431">
 
 Connect CLK100MHZ to BUFG_I and BUFG_O to MIG.sys_clk_i.  
-Connect ck_rst to MIG.ck_rst.  
+Connect ck_rst to MIG's sys_rst port.  
 (We leave ck_a0 unconnected for now.)
 
 Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for the MIG, and the clock for the MicroBlaze and other IPs.
@@ -129,13 +128,18 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 > Please be aware that if you modify my design and face issues, the first troubleshooting step is to lower the MicroBlaze frequency.  
 > Another troubleshooting trick is to clock the MicroBlaze and peripherals from a separate Clocking Wizard, which is not used for anything else.
 
-Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it. We make changes only on the Output Clocks tab.
+Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it.  
+Go to the Clocking Options tab and select Source "No buffer" in the Input Clock Information section. 
+
+<img src="pictures/clocking_wizard2.png" title="" alt="" width="567">
+
+Then go to the Output Clocks tab.
 
 For the reasons described earlier, we will create two output clocks of the same 200 MHz frequency. ck_out1 will clock the MicroBlaze and all other IPs except the MIG. The frequency of the ck_out1 can be lowered if any stability issues occur. ck_out2 will clock the MIG Reference Clock and must always be kept on 200 MHz.
 
 Set Reset Type Active Low because our reset input ck_rst is active low.
 
-<img src="pictures/clocking_wizzard.png" title="" alt="" width="567">
+<img src="pictures/clocking_wizzard2.png" title="" alt="" width="567">
 
 Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out2 to MIG.clk_ref_i.  
 So now we have the following diagram:
