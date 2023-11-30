@@ -14,7 +14,7 @@
     <AddressSpace Name="system_i_microblaze_0.system_i_microblaze_0_local_memory_dlmb_bram_if_cntlr" Begin="0" End="16383">
       <AddressSpaceRange Name="system_i_microblaze_0.system_i_microblaze_0_local_memory_dlmb_bram_if_cntlr" Begin="0" End="16383" CoreMemory_Width="0" MemoryType="RAM_SP" MemoryConfiguration="">
         <BusBlock>
-          <BitLane MemType="RAMB36" Placement="X1Y3" Read_Width="0" SLR_INDEX="-1">
+          <BitLane MemType="RAMB36" Placement="X1Y4" Read_Width="0" SLR_INDEX="-1">
             <DataWidth MSB="7" LSB="0"/>
             <AddressRange Begin="0" End="4095"/>
             <BitLayout pattern=""/>
@@ -26,13 +26,13 @@
             <BitLayout pattern=""/>
             <Parity ON="false" NumBits="0"/>
           </BitLane>
-          <BitLane MemType="RAMB36" Placement="X0Y5" Read_Width="0" SLR_INDEX="-1">
+          <BitLane MemType="RAMB36" Placement="X0Y2" Read_Width="0" SLR_INDEX="-1">
             <DataWidth MSB="23" LSB="16"/>
             <AddressRange Begin="0" End="4095"/>
             <BitLayout pattern=""/>
             <Parity ON="false" NumBits="0"/>
           </BitLane>
-          <BitLane MemType="RAMB36" Placement="X1Y4" Read_Width="0" SLR_INDEX="-1">
+          <BitLane MemType="RAMB36" Placement="X0Y3" Read_Width="0" SLR_INDEX="-1">
             <DataWidth MSB="31" LSB="24"/>
             <AddressRange Begin="0" End="4095"/>
             <BitLayout pattern=""/>

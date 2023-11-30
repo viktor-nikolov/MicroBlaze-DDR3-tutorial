@@ -16,4 +16,11 @@ platform write
 platform generate -domains 
 platform active {system}
 platform generate
+platform active {system}
+platform config -updatehw {c:/MicroZed_projects/ArtyA7_MicroBlaze_demo/ArtyA7_MicroBlaze_demo_hw/system_wrapper.xsa}
+platform clean
+platform generate
+platform clean
+platform generate
+platform generate -domains 
 platform clean
