@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x8341B3CA4BFD813B",
+      "boundary_crc": "0x8341B3CA5A9CC029",
       "device": "xc7a35ticsg324-1L",
       "gen_directory": "../../../../ArtyA7_MicroBlaze_demo_hw.gen/sources_1/bd/system",
       "name": "system",
@@ -309,6 +309,9 @@
           },
           "NUM_OUT_CLKS": {
             "value": "2"
+          },
+          "PRIM_SOURCE": {
+            "value": "No_buffer"
           },
           "RESET_PORT": {
             "value": "resetn"
