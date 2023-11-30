@@ -67,7 +67,7 @@ Delete ports clk_ref_i and sys_clk_i.
 
 Double-click the MIG and click Next till you get to the "Memory Options C0" page.
 
-- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 325 MHz as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than maximal possible 333 MHz clock of the DDR3 memory used on Arty A7, nevertheless the performance difference is negligible.
+- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz) as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
 
 Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
 
