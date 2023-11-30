@@ -6,9 +6,11 @@ The same steps and design should be applicable to any Digilent board with a 100 
 
 Most of the steps in this tutorial can be used also for MicroBlaze DDR3 design on boards from other manufacturers. 
 
-Included application is a benchmarking tool for memory read speed.
+The included application is a benchmarking tool for memory read speed.
 
 ## Memory Interface Generator configuration and connections
+
+Please make sure you have Digilent board files installed. [This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install them.
 
 Start Vivado 2023.1. Click Create Project. Click Next.  
 Enter the project name and directory. Click Next.  
