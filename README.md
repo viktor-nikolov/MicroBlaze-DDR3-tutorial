@@ -131,7 +131,7 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it.  
 Go to the Clocking Options tab and select Source "No buffer" in the Input Clock Information section because the input clock is already buffered by BUFG.
 
-<img src="pictures/clocking_wizard2.png" title="" alt="" width="567">
+<img src="pictures/clocking_wizard1.png" title="" alt="" width="567">
 
 Then go to the Output Clocks tab.
 
@@ -139,7 +139,7 @@ For the reasons described earlier, we will create two output clocks of the same 
 
 Set Reset Type Active Low because our reset input ck_rst is active low.
 
-<img src="pictures/clocking_wizzard2.png" title="" alt="" width="567">
+<img src="pictures/clocking_wizard2.png" title="" alt="" width="567">
 
 Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out2 to MIG.clk_ref_i.  
 So now we have the following diagram:
