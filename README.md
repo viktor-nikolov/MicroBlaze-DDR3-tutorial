@@ -129,7 +129,7 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 > Another troubleshooting trick is to clock the MicroBlaze and peripherals from a separate Clocking Wizard, which is not used for anything else.
 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it.  
-Go to the Clocking Options tab and select Source "No buffer" in the Input Clock Information section. 
+Go to the Clocking Options tab and select Source "No buffer" in the Input Clock Information section because the input clock is already buffered by BUFG.
 
 <img src="pictures/clocking_wizard2.png" title="" alt="" width="567">
 
