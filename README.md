@@ -264,7 +264,7 @@ HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, r
 
 Now we create the design outputs: Click "Generate Bitstream" in the Flow Navigator on the left. Synthesis and Implementation will be run automatically before bitstream generation.
 
-There should be no errors. However, expect one critical warning which says "[Timing 38-282] The design failed to meet the timing requirements.".  
+There should be no errors. However, expect one critical warning which says "[Timing 38-282] The design failed to meet the timing requirements."  
 In this demo, we do not need to worry about timing requirements.
 
 Last but not least, we need to export the hardware specification. It is necessary for the development of the SW app for the MicroBlaze in Vitis IDE.  
