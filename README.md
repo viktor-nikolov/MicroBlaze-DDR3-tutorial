@@ -75,7 +75,7 @@ Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we d
 
 <img src="pictures/mig_update.png" title="" alt="" width="600">
 
-Click Next. And select System Clock "No Buffer". (As explained earlier, we will add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) to the design manually.)
+Click Next and select System Clock "No Buffer". (As explained earlier, we will add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) to the design manually.)
 
 <img src="pictures/clock_no_buffer.png" title="" alt="" width="600">
 
