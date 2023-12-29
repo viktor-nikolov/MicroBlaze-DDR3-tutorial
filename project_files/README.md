@@ -19,6 +19,8 @@ The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vit
 > 
 > It drives the Arty A7 pin marked A0 high before the testing loop is executed. The pin is driven low after the loop finishes. Testing loops are repeated indefinitely.  
 > You, therefore, need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
+> 
+> The amount of data read from memory in the testing loop is defined by the macro BUFF_WORDS (i.e., number of 32b words) defined in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp). The value of the macro must be divisible by 4.
 
 > [!IMPORTANT]
 > **The app published in this repository was compiled for Arty A7-35. It won't load on Arty A7-100.**  
