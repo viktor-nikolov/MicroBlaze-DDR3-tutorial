@@ -212,7 +212,9 @@ Finish the configuration wizard by clicking Next.
 > [!NOTE]
 > MicroBlaze Reference Guide [UG984](https://docs.xilinx.com/v/u/en-US/ug984-vivado-microblaze-ref) says in [Table A-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2Fb4L~AnnQ0FpZ9cXl7XWkdA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dug984-vivado-microblaze-ref.pdf#G8.235415), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
 > The 200 MHz I used is obviously not in an "overclocking range".
-> However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is negative setup slack on the intra-clock paths of signals within the MicroBlaze.  
+> 
+> However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is negative setup slack on the intra-clock paths of signals within the MicroBlaze.
+> 
 > It is generally not good to have a negative setup slack. The design presented here worked well in all my tests, but we are "pushing our luck".  
 > If you want to be 100% on the safe side, reduce the main clock clk_wiz_0.clk_out1 to 100 MHz. All timing warnings will disappear and all slacks will be positive as they should.
 
