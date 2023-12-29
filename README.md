@@ -245,7 +245,7 @@ I moved IPs around for more clarity before I took this final snapshot:
 
 ![](pictures/final_diagram.png)
 
-###### Let me provide a few comments on what we see in the final diagram:
+##### Let me provide a few comments on what we see in the final diagram:
 
 - Everything is clocked by the 200 MHz clock from the Clocking Wizard except the ram_interconnect AXI Master interface, i.e., the interface connecting ram_interconnect and MIG.  
   This interface must be clocked by the output ui_clk from the MIG (in our case it is ¼ of the DDR3 RAM clock, i.e. 81.25 MHz).
