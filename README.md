@@ -209,6 +209,13 @@ Finish the configuration wizard by clicking Next.
 
 **Do not run Connection Automation yet.**
 
+> [!NOTE]
+> MicroBlaze Reference Guide [UG984](https://docs.xilinx.com/v/u/en-US/ug984-vivado-microblaze-ref) says in [Table A-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2Fb4L~AnnQ0FpZ9cXl7XWkdA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dug984-vivado-microblaze-ref.pdf#G8.235415), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
+> The 200 MHz I used is obviously not in an "overclocking range".
+> However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is negative setup slack on the intra-clock paths of signals within the MicroBlaze.  
+> It is generally not good to have a negative setup slack. The design presented here worked well in all my tests, but we are "pushing our luck".  
+> If you want to be 100% on the safe side, reduce the main clock clk_wiz_0.clk_out1 to 100 MHz. All timing warnings will disappear and all slacks will be positive as they should.
+
 ## Connecting it together
 
 Now, we create two AXI Interconnects. One will connect the MicroBlaze with DDR3 RAM, and the other will connect the MicroBlaze with peripherals.
@@ -257,12 +264,6 @@ I moved IPs around for more clarity before I took this final snapshot:
 > **Warning:** I experienced that **AXI Quad SPI doesn't run well at 200 MHz**. In another design of mine, which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 90 MHz to get AXI SPI working reliably (MicroBlaze and its side of Slave AXI interfaces on perif_interconnect worked OK on 200 MHz).  
 > As always, "the golden rule" applies here: If things don't work, lower the frequency.
 
-- MicroBlaze Reference Guide [UG984](https://docs.xilinx.com/v/u/en-US/ug984-vivado-microblaze-ref) says in [Table A-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2Fb4L~AnnQ0FpZ9cXl7XWkdA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dug984-vivado-microblaze-ref.pdf#G8.235415), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
-  The 200 MHz I used is obviously not in an "overclocking range".  
-  However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is a negative setup slack on the intra-clock paths of signals withing the MicroBlaze.  
-  It is generally not good to have a negative setup slack. The design presented here worked well in all my tests, but we are "pushing our luck".  
-  If you want to be 100% on the safe side, reduce the main clock clk_wiz_0.clk_out1 to  100 MHz. All timing warnings will disappear and all slacks will be positive as they should.
-
 - It's OK that the ram_interconnect has the Master interface running on 81.25 MHz and Slave interfaces running on 200 MHz. One of the AXI Interconnect features is providing a bridge over two different clock domains.  
   The overall throughput is, of course, limited by the slower of the clocks.
 
@@ -278,14 +279,14 @@ HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, r
 
 Now we create the design outputs: Click "Generate Bitstream" in the Flow Navigator on the left. Synthesis and Implementation will be run automatically before bitstream generation.
 
-There should be no errors. However, expect one critical warning which says "[Timing 38-282] The design failed to meet the timing requirements." as I described [above](#let-me-provide-a-few-comments-on-what-we-see-in-the-final-diagram).
+There should be no errors. However, expect one critical warning which says "[Timing 38-282] The design failed to meet the timing requirements." which I described in detail in [MicroBlaze](#microblaze) chapter.
 
 Last but not least, we need to export the hardware specification. It is necessary for the development of the SW app for the MicroBlaze in Vitis IDE.  
 Go to File|Export|Export Hardware, select "Include Bitstream".
 
 ## Project files
 
-The directory [project_files](project_files) contains the HW design created by this tutorial and an application, which benchmarks memory read speed.
+The directory [project_files](project_files) contains the HW design created by this tutorial and an application that benchmarks memory read speed.
 
 See the directory's [readme file](project_files/README.md) for details.
 
@@ -298,7 +299,7 @@ The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic
 
 A design with a 166.67 MHz internally generated MIG input System Clock may work (it worked during my tests). But it is not guaranteed to work, especially when the FPGA design gets more complex.
 
-I therefore did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.  
+I, therefore, did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.  
 Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210.
 
 The performance difference of the slightly lower 325 MHz DDR3 clock is negligible. With instruction and data caches disabled, I measured memory read performance only 0.5% lower compared to the 333.3 MHz DDR3 clock. With caches enabled, which should be the standard setup, there is virtually no performance difference.
