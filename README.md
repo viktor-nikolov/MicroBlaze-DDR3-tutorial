@@ -151,9 +151,9 @@ So now we have the following diagram:
 ## Peripherals
 
 We will use only USB UART and GPIO in this demo design. Nevertheless, other peripherals (e.g., SPI) can be added to the design in a similar manner.  
-(In case you use AXI Quad SPI in your design, do pay attention to an important note [in this section](#let-me-provide-a-few-comments-on-what-we-see-in-the-final-diagram) of this document.) 
+(In case you want use AXI Quad SPI in your design, do pay attention to an important note [in this section](#let-me-provide-a-few-comments-on-what-we-see-in-the-final-diagram) of this tutorial.) 
 
-For UAT we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART lite IP and corresponding input/output port.
+For UART, we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART lite IP and corresponding input/output port.
 
 We add GPIO manually. Search for "gpio" in the IP Catalog and drag AXI GPIO to the diagram. Double-click it for configuration. We need just one output GPIO pin for our demo, so we select "All Outputs" and set "GPIO Width" to 1:
 
@@ -252,9 +252,10 @@ I moved IPs around for more clarity before I took this final snapshot:
 
 > [!IMPORTANT]
 > Please understand that in this design I'm "overclocking" AXI GPIO and AXI UART Lite. Documentation for these IPs states that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz. See AXI GPIO Product Guide [PG144](https://docs.xilinx.com/v/u/en-US/pg144-axi-gpio), [Table 2-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2F0c0ItRCmnYkoHpcYUCPkEA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dpg144-axi-gpio.pdf#G5.306784).  
-> Nevertheless, by chance, in this case, the AXI GPIO manages to run at 200 MHz.
+> Nevertheless, by chance, in this case, the AXI GPIO manages to run at 200 MHz. This is absolutely not guaranteed in other designs.
 > 
-> **Warning:** I experienced that **AXI Quad SPI doesn't run well at 200 MHz**. In another design of mine, which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 90 MHz to get AXI SPI working reliably (MicroBlaze and its side of Slave AXI interfaces on perif_interconnect worked OK on 200 MHz).
+> **Warning:** I experienced that **AXI Quad SPI doesn't run well at 200 MHz**. In another design of mine, which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 90 MHz to get AXI SPI working reliably (MicroBlaze and its side of Slave AXI interfaces on perif_interconnect worked OK on 200 MHz).  
+> As always, "the golden rule" applies here: If things don't work, lower the frequency.
 
 - It's OK that the ram_interconnect has the Master interface running on 81.25 MHz and Slave interfaces running on 200 MHz. One of the AXI Interconnect features is providing a bridge over two different clock domains.  
   The overall throughput is, of course, limited by the slower of the clocks.
