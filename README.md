@@ -151,7 +151,7 @@ So now we have the following diagram:
 ## Peripherals
 
 We will use only USB UART and GPIO in this demo design. Nevertheless, other peripherals (e.g., SPI) can be added to the design in a similar manner.  
-(In case you want use AXI Quad SPI in your design, do pay attention to an important note [in this section](#let-me-provide-a-few-comments-on-what-we-see-in-the-final-diagram) of this tutorial.) 
+(:warning: In case you want to use AXI Quad SPI in your design, do pay attention to an important note [in this section](#let-me-provide-a-few-comments-on-what-we-see-in-the-final-diagram) of this tutorial.) 
 
 For UART, we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART lite IP and corresponding input/output port.
 
