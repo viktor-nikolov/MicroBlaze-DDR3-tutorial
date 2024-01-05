@@ -125,9 +125,9 @@ Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as 
 
 > [!IMPORTANT]
 > The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "trial and error" testing.  
-> For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both the MIG Reference Clock and the MicroBlaze (including peripherals), the design worked fine with MicroBlaze instruction and data caches disabled but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to the MIG Reference Clock, the other to the MicroBlaze and peripherals), everything worked fine. I'm not able to explain what the issue was when a single source clock was used.  
-> In my testing, the MicroBlaze didn't work with a frequency above 210 MHz, so I will stay on 200 MHz in this demo to be safe.  
-> Please be aware that if you modify my design and face issues, the first troubleshooting step is to lower the MicroBlaze frequency.  
+> For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both the MIG Reference Clock and the MicroBlaze (including peripherals), the design worked fine with MicroBlaze instruction and data caches disabled but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to the MIG Reference Clock, the other to the MicroBlaze and peripherals), everything worked fine. I'm not able to explain what the issue was when a single source clock was used (I can only guess that with two 200 MHz clocks, the routing is more favorable for the performance than with a single clock).  
+> MicroBlaze worked for me at 200 MHz in this design because it's a simple one. Please expect that in more complex designs, you will need to go lover with the frequency.  
+> Please be aware that if you modify my design and face issues, the very first troubleshooting step is to lower the MicroBlaze frequency (and frequency of connected AXI peripherals).  
 > Another troubleshooting trick is to clock the MicroBlaze and peripherals from a separate Clocking Wizard, which is not used for anything else.
 
 Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it.  
@@ -211,11 +211,11 @@ Finish the configuration wizard by clicking Next.
 
 > [!NOTE]
 > MicroBlaze Reference Guide [UG984](https://docs.xilinx.com/v/u/en-US/ug984-vivado-microblaze-ref) says in [Table A-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2Fb4L~AnnQ0FpZ9cXl7XWkdA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dug984-vivado-microblaze-ref.pdf#G8.235415), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
-> The 200 MHz I used is obviously not in an "overclocking range".
+> The 200 MHz I used does not seem to be in an "overclocking range".
 > 
 > However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is negative setup slack on the intra-clock paths of signals within the MicroBlaze.
 > 
-> It is generally not good to have a negative setup slack. The design presented here worked well in all my tests, but we are "pushing our luck".  
+> It is generally bad to have a negative setup slack. The design presented here worked well in all my tests, but we are "pushing our luck". I can't say that 200 MHz is a safe frequency.  
 > If you want to be 100% on the safe side, reduce the main clock clk_wiz_0.clk_out1 to 100 MHz. All timing warnings will disappear and all slacks will be positive as they should.
 
 ## Connecting it together
@@ -260,10 +260,10 @@ I moved IPs around for more clarity before I took this final snapshot:
   This interface must be clocked by the output ui_clk from the MIG (in our case it is ¼ of the DDR3 RAM clock, i.e. 81.25 MHz).
 
 > [!IMPORTANT]
-> Please understand that in this design I'm "overclocking" AXI GPIO and AXI UART Lite. Documentation for these IPs states that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz. See AXI GPIO Product Guide [PG144](https://docs.xilinx.com/v/u/en-US/pg144-axi-gpio), [Table 2-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2F0c0ItRCmnYkoHpcYUCPkEA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dpg144-axi-gpio.pdf#G5.306784).  
+> Please understand that in this design I'm "overclocking" AXI GPIO and AXI UART Lite IPs. Documentation for these IPs states that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz. See AXI GPIO Product Guide [PG144](https://docs.xilinx.com/v/u/en-US/pg144-axi-gpio), [Table 2-1](https://docs.xilinx.com/pdf-viewer?file=https%3A%2F%2Fdocs.xilinx.com%2Fapi%2Fkhub%2Fdocuments%2F0c0ItRCmnYkoHpcYUCPkEA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.2.26%26filename%3Dpg144-axi-gpio.pdf#G5.306784).  
 > Nevertheless, by chance, in this case, the AXI GPIO manages to run at 200 MHz. This is absolutely not guaranteed in other designs.
 > 
-> **Warning:** I experienced that **AXI Quad SPI doesn't run well at 200 MHz**. In another design of mine, which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 90 MHz to get AXI SPI working reliably (MicroBlaze and its side of Slave AXI interfaces on perif_interconnect worked OK on 200 MHz).  
+> **Warning:** I experienced that **AXI Quad SPI doesn't run well above 120 MHz**. In another design of mine, which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 120 MHz and MicroBlaze at 160 MHz to get AXI SPI working 100% reliably.   
 > As always, "the golden rule" applies here: If things don't work, lower the frequency.
 
 - It's OK that the ram_interconnect has the Master interface running on 81.25 MHz and Slave interfaces running on 200 MHz. One of the AXI Interconnect features is providing a bridge over two different clock domains.  
