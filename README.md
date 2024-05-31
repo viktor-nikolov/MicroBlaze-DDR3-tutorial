@@ -44,7 +44,7 @@ Unfortunately, there are two problems with the MIG just created by the Vivado au
 
 #### 1. MIG input Reference Clock must be 200 MHz
 
-- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 273 in the PDF version.
+- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/IDELAY-Reference-Clock?tocId=nJXWeiGvSLT1gJwwSLLFwg, page 105 in the PDF version.
 
 - The Vitis assumes that we have an input port that can clock clk_ref_i of the MIG. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
@@ -69,7 +69,7 @@ Delete ports clk_ref_i and sys_clk_i.
 
 Double-click the MIG and click Next till you get to the "Memory Options C0" page.
 
-- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 210 in the PDF version). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz) as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
+- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Clocking-Architecture?tocId=vKZi3JogyCep57tDVzAT3Q), page 103 in the PDF version). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz) as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
 
 Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
 
@@ -297,11 +297,11 @@ See the directory's [readme file](project_files/README.md) for details.
 Please note that in this HW design, I, on purpose, deviated from [Arty A7 DDR3 documentation](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) and from [this tutorial](https://digilent.com/reference/learn/programmable-logic/tutorials/arty-getting-started-with-microblaze-servers/start).
 
 Memory Interface Generator (MIG) input System Clock (sys_clk_i) is driven by an external 100 MHz oscillator in my design.
-The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) recommends a 166.67 MHz input clock, but a clock of such frequency can be obtained only internally on the FPGA chip by a Clocking Wizard. However, the MIG User Guide says, "The input system clock cannot be generated internally". See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 210 in the PDF version. It's because driving it from an [MMCM](https://www.xilinx.com/products/intellectual-property/mmcm_module.html) of a Clocking Wizzard might introduce too much jitter.
+The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) recommends a 166.67 MHz input clock, but a clock of such frequency can be obtained only internally on the FPGA chip by a Clocking Wizard. However, the MIG User Guide says, "The input system clock cannot be generated internally". See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Input-Clock-Guidelines?tocId=D73WD16GVW5oE_XpfPVH4g), page 188 in the PDF version. It's because driving it from an [MMCM](https://www.xilinx.com/products/intellectual-property/mmcm_module.html) of a Clocking Wizzard might introduce too much jitter.
 
 A design with a 166.67 MHz internally generated MIG input System Clock may work (it worked during my tests). But it is not guaranteed to work, especially when the FPGA design gets more complex.
 
 I, therefore, did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.  
-Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 210 in the PDF version.
+Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Clocking-Architecture?tocId=vKZi3JogyCep57tDVzAT3Q), page 103 in the PDF version.
 
 The performance difference of the slightly lower 325 MHz DDR3 clock is negligible. With instruction and data caches disabled, I measured memory read performance only 0.5% lower compared to the 333.3 MHz DDR3 clock. With caches enabled, which should be the standard setup, there is virtually no performance difference.
