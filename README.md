@@ -44,7 +44,7 @@ Unfortunately, there are two problems with the MIG just created by the Vivado au
 
 #### 1. MIG input Reference Clock must be 200 MHz
 
-- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/IDELAY-Reference-Clock?tocId=nJXWeiGvSLT1gJwwSLLFwg, page 105 in the PDF version.
+- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/IDELAY-Reference-Clock?tocId=nJXWeiGvSLT1gJwwSLLFwg), page 105 in the PDF version.
 
 - The Vitis assumes that we have an input port that can clock clk_ref_i of the MIG. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
