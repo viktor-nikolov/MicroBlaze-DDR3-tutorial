@@ -44,15 +44,15 @@ Unfortunately, there are two problems with the MIG just created by the Vivado au
 
 #### 1. MIG input Reference Clock must be 200 MHz
 
-- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 273.
+- The MIG requires the Reference Clock (clk_ref_i) to be 200 MHz. See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 273 in the PDF version.
 
-- The Vitis assumes that we have an input port that can clock MIG.clk_ref_i. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
+- The Vitis assumes that we have an input port that can clock clk_ref_i of the MIG. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
 - We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
 
 #### 2. We can't connect the external system clock to MIG directly
 
-- I learned "the hard way" that if we leave the external 100 MHz port sys_clk_i connected directly to MIG.sys_clk_i, we will later face an error during Implementation in case we use a pin from bank 35 in the design.
+- I learned "the hard way" that if we leave the external 100 MHz port sys_clk_i connected directly to sys_clk_i of the MIG, we will later face an error during Implementation in case we use a pin from bank 35 in the design.
 - Pins of  Xilinx Artix-7 FPGAs are organized into banks. Banks are identified by numbers. In the [schematics of Arty A7](https://digilent.com/reference/_media/programmable-logic/arty-a7/arty-a7-e2-sch.pdf) we can see that pins connected to sockets on the Arty A7 belong to banks 14, 15 and 35. All pins in a given bank must work on the same voltage. In the case of the Arty A7, banks 14, 15 and 35 work on 3.3 V.
 - The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the Artix-7 pin named E3, which is in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore Vitis raises the following error when I used a pin ck_a0 (also belonging to bank 35) in the design:
   - [DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35. For example, the following two ports in this bank have conflicting VCCOs:  
@@ -69,7 +69,7 @@ Delete ports clk_ref_i and sys_clk_i.
 
 Double-click the MIG and click Next till you get to the "Memory Options C0" page.
 
-- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz) as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
+- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 210 in the PDF version). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz) as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
 
 Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
 
@@ -117,7 +117,7 @@ Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Do
 
 <img src="pictures/bufg.png" title="" alt="" width="431">
 
-Connect CLK100MHZ to BUFG_I and BUFG_O to MIG.sys_clk_i.  
+Connect CLK100MHZ to BUFG_I and BUFG_O to sys_clk_i on the MIG.  
 Connect ck_rst to MIG's sys_rst port.  
 (We leave ck_a0 unconnected for now.)
 
@@ -143,7 +143,7 @@ Set Reset Type Active Low because our reset input ck_rst is active low.
 
 <img src="pictures/clocking_wizard2.png" title="" alt="" width="567">
 
-Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out2 to MIG.clk_ref_i.  
+Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out2 to clk_ref_i of the MIG.  
 So now we have the following diagram:
 
 <img title="" src="pictures/wizard_added.png" alt="" width="738">
@@ -247,7 +247,7 @@ Now we can let the automation do the rest of the work, i.e., connect the clock a
 
 Another Vivado magic happens, and we now have an almost final diagram.
 
-The last step is to connect MIG.aresetn with ram_interconnect.M00_ARESETN manually (this makes both aresetn signals connected to peripheral_aresetn of a new Processor System Reset IP, which the automation created).  
+The last step is to connect aresetn on the MIG with M00_ARESETN on the ram_interconnect manually (this makes both aresetn signals connected to peripheral_aresetn of a new Processor System Reset IP, which the automation created).  
 The Connection Automation didn't do this last connection for me.
 
 I moved IPs around for more clarity before I took this final snapshot:
@@ -270,7 +270,7 @@ I moved IPs around for more clarity before I took this final snapshot:
   The overall throughput is, of course, limited by the slower of the clocks.
 
 - Reset is done by the peripheral_aresetn outputting from the Processor System Reset IP for the MicroBlaze (rst_clk_wiz_0_200M). The Processor System Reset IP ensures that this reset signal is synchronized with the 200 MHz clock.   
-  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the clock MIG.ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M), which also provides the AXI Slave interface reset signal (aresetn) to the MIG.
+  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the MIG's clock ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M), which also provides the AXI Slave interface reset signal (aresetn) to the MIG.
 
 ## Generating output
 
@@ -297,11 +297,11 @@ See the directory's [readme file](project_files/README.md) for details.
 Please note that in this HW design, I, on purpose, deviated from [Arty A7 DDR3 documentation](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) and from [this tutorial](https://digilent.com/reference/learn/programmable-logic/tutorials/arty-getting-started-with-microblaze-servers/start).
 
 Memory Interface Generator (MIG) input System Clock (sys_clk_i) is driven by an external 100 MHz oscillator in my design.
-The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) recommends a 166.67 MHz input clock, but a clock of such frequency can be obtained only internally on the FPGA chip by a Clocking Wizard. However, the MIG User Guide says, "The input system clock cannot be generated internally". See [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210. It's because driving it from an [MMCM](https://www.xilinx.com/products/intellectual-property/mmcm_module.html) of a Clocking Wizzard might introduce too much jitter.
+The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) recommends a 166.67 MHz input clock, but a clock of such frequency can be obtained only internally on the FPGA chip by a Clocking Wizard. However, the MIG User Guide says, "The input system clock cannot be generated internally". See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 210 in the PDF version. It's because driving it from an [MMCM](https://www.xilinx.com/products/intellectual-property/mmcm_module.html) of a Clocking Wizzard might introduce too much jitter.
 
 A design with a 166.67 MHz internally generated MIG input System Clock may work (it worked during my tests). But it is not guaranteed to work, especially when the FPGA design gets more complex.
 
 I, therefore, did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.  
-Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.xilinx.com/v/u/en-US/ug586_7Series_MIS), page 210.
+Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS), page 210 in the PDF version.
 
 The performance difference of the slightly lower 325 MHz DDR3 clock is negligible. With instruction and data caches disabled, I measured memory read performance only 0.5% lower compared to the 333.3 MHz DDR3 clock. With caches enabled, which should be the standard setup, there is virtually no performance difference.
