@@ -75,7 +75,8 @@ Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we d
 
 <img src="pictures/mig_update.png" title="" alt="" width="600">
 
-Click Next and select System Clock "No Buffer". (As explained earlier, we will add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) to the design manually.)
+Click Next and select System Clock "No Buffer". (As explained earlier, we will add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) to the design manually.)  
+Make sure that the Reference Clock is also set to "No Buffer." Since we generate it from the Clocking Wizard, no buffer is needed.
 
 <img src="pictures/clock_no_buffer.png" title="" alt="" width="600">
 
@@ -210,7 +211,7 @@ Finish the configuration wizard by clicking Next.
 **Do not run Connection Automation yet.**
 
 > [!NOTE]
-> MicroBlaze Reference Guide [UG984](https://docs.xilinx.com/v/u/en-US/ug984-vivado-microblaze-ref) says in [Table A-1](https://docs.amd.com/pdf-viewer?file=https%3A%2F%2Fdocs.amd.com%2Fapi%2Fkhub%2Fdocuments%2F3c5ze3XXXXJzLosZmBjxsg%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.3.29%26filename%3Dug984-vivado-microblaze-ref.pdf#G8.235415), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
+> MicroBlaze Reference Guide [UG984](https://docs.amd.com/r/en-US/ug984-vivado-microblaze-ref) says in [Table 105](https://docs.amd.com/r/en-US/ug984-vivado-microblaze-ref/Maximum-Frequencies), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
 > The 200 MHz I used does not seem to be in an "overclocking range".
 > 
 > However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is negative setup slack on the intra-clock paths of signals within the MicroBlaze.
