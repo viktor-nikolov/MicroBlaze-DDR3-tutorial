@@ -1,6 +1,6 @@
 # Tutorial: MicroBlaze with DDR3 RAM on Arty A7
 
-This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1.
+This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1 or Vivado 2024.1.
 
 The same steps and design should be applicable to any Digilent board with a 100 MHz crystal oscillator and a DDR interface, including [Nexys A7](https://digilent.com/shop/nexys-a7-fpga-trainer-board-recommended-for-ece-curriculum/), [Arty S7](https://digilent.com/shop/arty-s7-spartan-7-fpga-development-board/), [Nexys Video](https://digilent.com/shop/nexys-video-artix-7-fpga-trainer-board-for-multimedia-applications/) and [USB104 A7](https://digilent.com/shop/usb104-a7-artix-7-fpga-development-board-with-syzygy-compatible-expansion/).
 
@@ -12,7 +12,7 @@ The included application is a benchmarking tool for memory read speed.
 
 Please make sure you have Digilent board files installed. [This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install them.
 
-Start Vivado 2023.1. Click Create Project. Click Next.  
+Start Vivado 2023.1 or Vivado 2024.1. Click Create Project. Click Next.  
 Enter the project name and directory. Click Next.  
 Select "RTL Project" and "Do not specify sources at this time". Click Next.
 
@@ -169,13 +169,14 @@ So now we have this (still very simple) diagram:
 
 ## MicroBlaze
 
-Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.
+Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.  
+Please make sure you add the "MicroBlaze," i.e., the Classic MicroBlaze, not MicroBlaze MCS or Microblaze V. While other flavors of MicroBlaze can also be used with MIG, I tested this tutorial with the Classic MicroBlaze, and the SW application provided in this repository also expects the Classic MicroBlaze.
 
 "Run Block Automation" appears on the top of the diagram. Click on it. This will open a window for the initial configuration of the MicroBlaze processor.
 
 We are offered three preset configurations. I like to use the "Real-time" preset.
 
-Then is the local memory setting, i.e. the memory on the Artix-7 FPGA.   
+Then there is the local memory setting, i.e. the memory on the Artix-7 FPGA.   
 All this demo is based on configuring MicroBlaze to use the DDR3 memory (which is much bigger in size than the memory available on the FPGA chip). The demo app will be running in the DDR3 memory.  
 However, I recommend selecting 16kB of the local memory. This is for future use. When you decide to load the FPGA configuration and MicroBlaze app from the flash (like on a production device), you will need the local memory to store the MicroBlaze bootloader, which will load the app from the flash to DDR3 memory. See this tutorial on the topic: [Flashing a MicroBlaze Program](https://www.instructables.com/Flashing-a-MicroBlaze-Program).
 
@@ -194,7 +195,9 @@ Automation added a Debug Module and local memory for the MicroBlaze. Processor S
 
 ![](pictures/microblaze_added.png)
 
-Let's do a fine-tuning of the MicroBlaze configuration before we continue. 
+At this point, Vivado 2024.1 shows "Run Block Automation" again (Vivado 2023.1 doesn't do that). Click on it. You will see a proposal to convert MicroBlaze to [MicroBlaze V](https://www.xilinx.com/products/design-tools/microblaze-v.html), i.e., a version of MicroBlaze using the open [RISC-V](https://riscv.org/about/) instruction set. We do not want to do it in this tutorial. Select Keep Classic MicroBlaze and then click OK.
+
+Let's fine-tune the MicroBlaze configuration before we continue. 
 
 The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in FPGA's local memory is tremendously faster than the DDR3 RAM.
 
@@ -276,7 +279,8 @@ I moved IPs around for more clarity before I took this final snapshot:
 ## Generating output
 
 To make sure that nothing was missed, click the Validate Design button in the toolbar of the diagram window (or press F6).  
-You will probably get a message that there are unassigned address segments. Click Yes for auto-assigning them.
+You will probably get a message that there are unassigned address segments. Click Yes for auto-assigning them.  
+I discovered that Vivado will ask you about auto-assigning addresses only if you have the Address Editor open (Windows|Address Editor). If it wasn't open, open the Address Editor and re-run the Validate Design.
 
 HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, right-click on "system", select "Create HDL Wrapper", and select "Let Vivado manage wrapper".
 
