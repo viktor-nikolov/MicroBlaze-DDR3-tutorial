@@ -1,8 +1,8 @@
 # Demo HW design of MicroBlaze using DDR3 RAM on Arty A7
 
-The folder [ArtyA7_MicroBlaze_demo_hw](ArtyA7_MicroBlaze_demo_hw) contains the HW design project created by the [tutorial](../README.md).
+The folders [ArtyA7_MicroBlaze_demo_hw_2023.1](ArtyA7_MicroBlaze_demo_hw_2023.1) and [ArtyA7_MicroBlaze_demo_hw_2024.1](ArtyA7_MicroBlaze_demo_hw_2024.1) contain the HW design project created by the [tutorial](../README.md) in Vivado 2023.1 and Vivado 2024.1
 
-The design was made in Vivado 2023.1 and tested on Arty A7-35 (which is no longer in production).
+I tested the design on Arty A7-35 (which is no longer in production). I expect it to work also on [Arty A7-100](https://digilent.com/shop/arty-a7-100t-artix-7-fpga-development-board/).
 
 > [!IMPORTANT]
 > **If you have [Arty A7-100](https://digilent.com/shop/arty-a7-100t-artix-7-fpga-development-board/)**, you need to change the board to A7-100 in Vivado in Tools|Settings|General|Project device.
@@ -11,7 +11,7 @@ The design was made in Vivado 2023.1 and tested on Arty A7-35 (which is no longe
 
 # Memory read speed benchmarking app
 
-The folder [MicroBlaze_DDR_speed_test_sw](MicroBlaze_DDR_speed_test_sw) is a Vitis 2023.1 workspace of the benchmarking app.
+The folder [MicroBlaze_DDR_speed_test_sw_2023.1](MicroBlaze_DDR_speed_test_sw_2023.1) is a Vitis 2023.1 workspace of the benchmarking app, which runs on the HW design created by the tutorial.
 
 > [!IMPORTANT]
 > You need an oscilloscope in order to make use of the app.  
