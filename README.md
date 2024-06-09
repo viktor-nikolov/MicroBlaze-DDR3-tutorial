@@ -6,7 +6,7 @@ The same steps and design should be applicable to any Digilent board with a 100 
 
 Most of the steps in this tutorial can be used also for MicroBlaze DDR3 design on boards from other manufacturers. 
 
-The included application is a benchmarking tool for memory read speed.
+The included [application](project_files) is a benchmarking tool for memory read speed.
 
 ## Memory Interface Generator configuration and connections
 
