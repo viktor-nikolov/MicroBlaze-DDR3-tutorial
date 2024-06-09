@@ -19,7 +19,8 @@ It will ask you if you want to update it to version 2024.1. After the update, th
 > [!WARNING]
 >
 > I wasn't able to make the benchmarking app work in Vitis 2024.1 (i.e., in the new Vitis Unified IDE).  
-> The IDE raises unnecessary warnings, and the app doesn't work with instructions and data cache enabled.
+> The IDE raises unnecessary warnings, and the app doesn't work with instructions and data cache enabled.  
+> I will test my other Microblaze designs in Vitis Unified IDE 2024.1 and share the observations here.
 
 > [!IMPORTANT]
 > You need an oscilloscope in order to make use of the app.  
