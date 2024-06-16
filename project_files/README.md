@@ -14,13 +14,8 @@ I tested the design on Arty A7-35 (which is no longer in production). I expect i
 The folder [MicroBlaze_DDR_speed_test_sw_2023.1](MicroBlaze_DDR_speed_test_sw_2023.1) is a Vitis 2023.1 workspace of the benchmarking app, which runs on the HW design created by the tutorial.
 
 You can also open this workspace in Vitis Classic 2024.1.  
-It will ask you if you want to update it to version 2024.1. After the update, the app will compile and work the very same way as it does in Vitis 2023.1. 
-
-> [!WARNING]
->
-> I wasn't able to make the benchmarking app work in Vitis 2024.1 (i.e., in the new Vitis Unified IDE).  
-> The IDE raises unnecessary warnings, and the app doesn't work with instructions and data cache enabled.  
-> I will test my other Microblaze designs in Vitis Unified IDE 2024.1 and share the observations here.
+It will ask you if you want to update it to version 2024.1. After the update, the app will compile and work the very same way as it does in Vitis 2023.1.  
+It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vitis Unified IDE). The Vitis Unified 2024.1 doesn't read correctly MicroBlaze parameters from the XSA file.
 
 > [!IMPORTANT]
 > You need an oscilloscope in order to make use of the app.  
