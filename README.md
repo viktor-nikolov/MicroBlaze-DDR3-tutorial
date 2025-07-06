@@ -203,7 +203,7 @@ Let's fine-tune the MicroBlaze configuration before we continue.
 
 The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in the FPGA's local memory is tremendously faster than the DDR3 RAM.
 
-The [testing app](project_files/MicroBlaze_DDR_speed_test_sw) in this repository is a simple memory read speed test. On a 30 kB array (which fits into the cache), it runs 7.24 milliseconds when the caches are disabled. It runs 0.088 milliseconds from the cache (this is not a typo; it does run only 88 microseconds from the cache).
+The [testing app](project_files) in this repository is a simple memory read speed test. On a 30 kB array (which fits into the cache), it runs 7.24 milliseconds when the caches are disabled. It runs 0.088 milliseconds from the cache (this is not a typo; it does run only 88 microseconds from the cache).
 
 Double-click on the MicroBlaze and click Next till the cache configuration page.  
 Increase instruction cache to 16 kB and data cache to 32 kB. Set the Line Length to 8 and the Number of Victims to 8.
