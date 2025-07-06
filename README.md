@@ -1,22 +1,22 @@
 # Tutorial: MicroBlaze with DDR3 RAM on Arty A7
 
-This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1 or Vivado 2024.1.
+This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1, Vivado 2024.1, or Vivado 2025.1.
 
 The same steps and design should be applicable to any Digilent board with a 100 MHz crystal oscillator and a DDR interface, including [Nexys A7](https://digilent.com/shop/nexys-a7-fpga-trainer-board-recommended-for-ece-curriculum/), [Arty S7](https://digilent.com/shop/arty-s7-spartan-7-fpga-development-board/), [Nexys Video](https://digilent.com/shop/nexys-video-artix-7-fpga-trainer-board-for-multimedia-applications/) and [USB104 A7](https://digilent.com/shop/usb104-a7-artix-7-fpga-development-board-with-syzygy-compatible-expansion/).
 
-Most of the steps in this tutorial can be used also for MicroBlaze DDR3 design on boards from other manufacturers. 
+Most of the steps in this tutorial can also be used for MicroBlaze DDR3 design on boards from other manufacturers. 
 
 The included [application](project_files) is a benchmarking tool for memory read speed.
 
 ## Memory Interface Generator configuration and connections
 
-Please make sure you have Digilent board files installed. [This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install them.
+Please make sure you have the Digilent board files installed. [This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install them.
 
-Start Vivado 2023.1 or Vivado 2024.1. Click Create Project. Click Next.  
+Start Vivado. Click Create Project. Click Next.  
 Enter the project name and directory. Click Next.  
 Select "RTL Project" and "Do not specify sources at this time". Click Next.
 
-Select Arty A7-100 or -35 board based on the board you are using. The steps in this tutorial are exactly the same for both models. By selecting the board, we will use the board file provided by Digilent.
+Select the Arty A7-100 or -35 board based on the board you are using. The steps in this tutorial are exactly the same for both models. By selecting the board, we will use the board file provided by Digilent.
 
 <img title="" src="pictures/select_board.png" alt="" width="475">
 
@@ -48,16 +48,16 @@ Unfortunately, there are two problems with the MIG just created by the Vivado au
 
 - The Vitis assumes that we have an input port that can clock clk_ref_i of the MIG. But that is not the case. Arty A7 has only one on-board oscillator, which provides a 100 MHz clock, not 200 MHz.
 
-- We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the on-board oscillator.
+- We will solve this issue easily by adding a Clocking Wizard, which will generate the 200 MHz clock based on the 100 MHz clock from the onboard oscillator.
 
 #### 2. We can't connect the external system clock to MIG directly
 
 - I learned "the hard way" that if we leave the external 100 MHz port sys_clk_i connected directly to sys_clk_i of the MIG, we will later face an error during Implementation in case we use a pin from bank 35 in the design.
 - Pins of  Xilinx Artix-7 FPGAs are organized into banks. Banks are identified by numbers. In the [schematics of Arty A7](https://digilent.com/reference/_media/programmable-logic/arty-a7/arty-a7-e2-sch.pdf) we can see that pins connected to sockets on the Arty A7 belong to banks 14, 15 and 35. All pins in a given bank must work on the same voltage. In the case of the Arty A7, banks 14, 15 and 35 work on 3.3 V.
-- The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the Artix-7 pin named E3, which is in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore Vitis raises the following error when I used a pin ck_a0 (also belonging to bank 35) in the design:
+- The problem is that MIG expects sys_clk_i to be 2.5 V, but the external 100 MHz oscillator is connected to the Artix-7 pin named E3, which is in bank 35 and thus operates on 3.3 V (and the oscillator used in the circuit is actually a 3.3 V oscillator). Therefore, Vitis raises the following error when I used a pin ck_a0 (also belonging to bank 35) in the design:
   - [DRC BIVC-1] Bank IO standard Vcc: Conflicting Vcc voltages in bank 35. For example, the following two ports in this bank have conflicting VCCOs:  
     sys_clk_i (LVCMOS25, requiring VCCO=2.500) and ck_a0[0] (LVCMOS33, requiring VCCO=3.300)
-- I realize that the previous paragraphs may sound complicated, but the good news is that I found a solution to the issue. We simply add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) on the external clock input. My understanding is that adding BUFG changes the routing of the external clock so it doesn't collide with the rest of the pins in the bank 35.
+- I realize that the previous paragraphs may sound complicated, but the good news is that I found a solution to the issue. We simply add a [BUFG buffer](https://docs.xilinx.com/r/en-US/ug953-vivado-7series-libraries/BUFG) on the external clock input. My understanding is that adding BUFG changes the routing of the external clock so it doesn't collide with the rest of the pins in bank 35.
 
 Let's make the needed changes.
 
@@ -65,13 +65,13 @@ Delete ports clk_ref_i and sys_clk_i.
 (The port ddr3_sdram is OK. It represents a connection to the DDR3 chip on the board and it was correctly configured by the automation.)
 
 > [!IMPORTANT]
-> We must re-synthetize the MIG in order to get rid of automatically generated configuration related to sys_clk_i. If we didn't do it, we would get critical warnings or errors during the Implementation.
+> We must resynthesize the MIG in order to get rid of the automatically generated configuration related to sys_clk_i. If we didn't do it, we would get critical warnings or errors during the Implementation.
 
 Double-click the MIG and click Next till you get to the "Memory Options C0" page.
 
-- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Clocking-Architecture?tocId=vKZi3JogyCep57tDVzAT3Q), page 103 in the PDF version). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz) as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
+- Remark: Notice that the correct 100 MHz Input Clock Period was configured by the automation. It's important to understand that only certain ratios between the Input Clock and the DDR3 clock are supported (technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Clocking-Architecture?tocId=vKZi3JogyCep57tDVzAT3Q), page 103 in the PDF version). Because our Input Clock has to be 100 MHz, the automation set the DDR3 clock period to 3077 ps (325 MHz), as you can check on the "Options for Controller 0" page of the MIG configuration wizard. 325 MHz is lower than the maximum possible 333 MHz clock of the DDR3 memory used on Arty A7. Nevertheless, the performance difference is negligible.
 
-Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we do not need a clock generated from the MIG, we will use a Clocking Wizzard.
+Disable "Select Additional Clocks". For MicroBlaze and the rest of the IPs, we do not need a clock generated from the MIG; we will use a Clocking Wizard.
 
 <img src="pictures/mig_update.png" title="" alt="" width="600">
 
@@ -85,7 +85,7 @@ Then finish the MIG configuration wizard without further changes (note that you 
 Now we will manually create the ports we need.
 
 Download [Arty-A7-100-Master.xdc](https://github.com/Digilent/digilent-xdc/blob/master/Arty-A7-100-Master.xdc) from the [Digilent GitHub](https://github.com/Digilent).  
-The .xdc file for A7-100 works also for A7-35. The pin connections are the same. A7-100 and A7-35 .xdc files differ only slightly in some comments.
+The .xdc file for A7-100 also works for A7-35. The pin connections are the same. A7-100 and A7-35 .xdc files differ only slightly in some comments.
 
 Add Arty-A7-100-Master.xdc as the constraints file to Vivado (window Sources, "+" button). Do not forget to check "Copy constraints file into project". We want to have a copy of the file in the project because we are going to edit it.
 
@@ -114,7 +114,7 @@ Now add the three ports to the diagram (select Create Port in the context menu, 
 
 **Do not run Connection Automation yet.**
 
-Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Double-click it for configuration and select C Buf Type as BUFG.
+Search for "buffer" in the IP Catalog and drag Utility Buffer to the diagram. Double-click it for configuration and select 'C Buf Type' as BUFG (in Vivado 2025.1, BUFG is at the top of the list).
 
 <img src="pictures/bufg.png" title="" alt="" width="431">
 
@@ -122,16 +122,16 @@ Connect CLK100MHZ to BUFG_I and BUFG_O to sys_clk_i on the MIG.
 Connect ck_rst to MIG's sys_rst port.  
 (We leave ck_a0 unconnected for now.)
 
-Next, we need to add a Clocking Wizzard to generate the 200 MHz clock needed as the input Reference Clock for the MIG, and the clock for the MicroBlaze and other IPs.
+Next, we need to add a Clocking Wizard to generate the 200 MHz clock needed as the input Reference Clock for the MIG, and the clock for the MicroBlaze and other IPs.
 
 > [!IMPORTANT]
-> The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze on 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "trial and error" testing.  
-> For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both the MIG Reference Clock and the MicroBlaze (including peripherals), the design worked fine with MicroBlaze instruction and data caches disabled but failed with caches enabled. When I switched to a Clocking Wizzard with two output clocks of the same 200 MHz frequency (one connected to the MIG Reference Clock, the other to the MicroBlaze and peripherals), everything worked fine. I'm not able to explain what the issue was when a single source clock was used. I can only guess that with two 200 MHz clocks, the routing is more favorable for the performance than with a single clock.  
-> MicroBlaze worked for me at 200 MHz in this design because it's a simple one. Please expect that in more complex designs, you will need to go lover with the frequency.  
+> The MicroBlaze tutorials I found on the internet generally clock the MicroBlaze at 100 MHz. I discovered during my testing that going higher is possible but somewhat tricky. The design I'm presenting here is a result of a considerable amount of "trial and error" testing.  
+> For example: When I created a Clocking Wizard with a single 200 MHz output clock and used it for both the MIG Reference Clock and the MicroBlaze (including peripherals), the design worked fine with MicroBlaze instruction and data caches disabled but failed with caches enabled. When I switched to a Clocking Wizard with two output clocks of the same 200 MHz frequency (one connected to the MIG Reference Clock, the other to the MicroBlaze and peripherals), everything worked fine. I'm not able to explain what the issue was when a single source clock was used. I can only guess that with two 200 MHz clocks, the routing is more favorable for the performance than with a single clock.  
+> MicroBlaze worked for me at 200 MHz in this design because it's a simple one. Please expect that in more complex designs, you will need to go lower with the frequency.  
 > Please be aware that if you modify my design and face issues, the very first troubleshooting step is to lower the MicroBlaze frequency (and frequency of connected AXI peripherals).  
 > Another troubleshooting trick is to clock the MicroBlaze and peripherals from a separate Clocking Wizard, which is not used for anything else.
 
-Search for "clocking" in the IP Catalog and drag Clocking Wizzard to the diagram. Double-click on the Clocking Wizzard to configure it.  
+Search for "clocking" in the IP Catalog and drag Clocking Wizard to the diagram. Double-click on the Clocking Wizard to configure it.  
 Go to the Clocking Options tab and select Source "No buffer" in the Input Clock Information section because the input clock is already buffered by BUFG.
 
 <img src="pictures/clocking_wizard1.png" title="" alt="" width="600">
@@ -144,7 +144,7 @@ Set Reset Type Active Low because our reset input ck_rst is active low.
 
 <img src="pictures/clocking_wizard2.png" title="" alt="" width="567">
 
-Connect ck_rst to the resetn of the Clocking Wizzard, BUFG_O to clk_in1 and clk_out2 to clk_ref_i of the MIG.  
+Connect ck_rst to the resetn of the Clocking Wizard, BUFG_O to clk_in1 and clk_out2 to clk_ref_i of the MIG.  
 So now we have the following diagram:
 
 <img title="" src="pictures/wizard_added.png" alt="" width="738">
@@ -154,7 +154,7 @@ So now we have the following diagram:
 We will use only USB UART and GPIO in this demo design. Nevertheless, other peripherals (e.g., SPI) can be added to the design in a similar manner.  
 :warning: In case you want to use AXI Quad SPI IP in your design, do pay attention to an important note [in this section](#let-me-provide-a-few-comments-on-what-we-see-in-the-final-diagram) of this tutorial. You can also check this [sample project](https://github.com/viktor-nikolov/ILI9488-Xilinx/tree/main/sample_project_files/MicroBlaze_DDR3_AXI-GPIO_AXI-SPI) of mine for a working example of AXI Quad SPI IP use with the MicroBlaze.
 
-For UART, we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART lite IP and corresponding input/output port.
+For UART, we use the benefit of the board file. Drag "USB UART" from the Board window to the diagram. It will create AXI UART Lite IP and the corresponding input/output port.
 
 We add GPIO manually. Search for "gpio" in the IP Catalog and drag AXI GPIO to the diagram. Double-click it for configuration. We need just one output GPIO pin for our demo, so we select "All Outputs" and set "GPIO Width" to 1:
 
@@ -170,13 +170,13 @@ So now we have this (still very simple) diagram:
 ## MicroBlaze
 
 Now it's time to add the MicroBlaze. Search for "micro" in the IP Catalog and drag MicroBlaze to the diagram.  
-Please make sure you add the "MicroBlaze," i.e., the Classic MicroBlaze, not MicroBlaze MCS or Microblaze V. While other flavors of MicroBlaze can also be used with MIG, I tested this tutorial with the Classic MicroBlaze, and the SW application provided in this repository also expects the Classic MicroBlaze.
+Please make sure you add the "MicroBlaze," i.e., the Classic MicroBlaze, not MicroBlaze MCS or MicroBlaze V. While other flavors of MicroBlaze can also be used with MIG, I tested this tutorial with the Classic MicroBlaze, and the SW application provided in this repository also expects the Classic MicroBlaze.
 
-"Run Block Automation" appears on the top of the diagram. Click on it. This will open a window for the initial configuration of the MicroBlaze processor.
+"Run Block Automation" appears at the top of the diagram. Click on it. This will open a window for the initial configuration of the MicroBlaze processor.
 
 We are offered three preset configurations. I like to use the "Real-time" preset.
 
-Then there is the local memory setting, i.e. the memory on the Artix-7 FPGA.   
+Then there is the local memory setting, i.e., the memory on the Artix-7 FPGA.   
 All this demo is based on configuring MicroBlaze to use the DDR3 memory (which is much bigger in size than the memory available on the FPGA chip). The demo app will be running in the DDR3 memory.  
 However, I recommend selecting 16kB of the local memory. This is for future use. When you decide to load the FPGA configuration and MicroBlaze app from the flash (like on a production device), you will need the local memory to store the MicroBlaze bootloader, which will load the app from the flash to DDR3 memory. See this tutorial on the topic: [Flashing a MicroBlaze Program](https://www.instructables.com/Flashing-a-MicroBlaze-Program).
 
@@ -190,16 +190,18 @@ We will use the clock /clk_wiz_0/clk_out1 for MicroBlaze, select it as the Clock
 
 <img title="" src="pictures/block_automation.png" alt="" width="600">
 
-After clicking OK a lot will happen in the diagram.  
+After clicking OK, a lot will happen in the diagram.  
 Automation added a Debug Module and local memory for the MicroBlaze. Processor System Reset IP was added to generate a reset signal for MicroBlaze, which is synchronized with the clock.
 
 ![](pictures/microblaze_added.png)
 
-At this point, Vivado 2024.1 shows "Run Block Automation" again (Vivado 2023.1 doesn't do that). Click on it. You will see a proposal to convert MicroBlaze to [MicroBlaze V](https://www.xilinx.com/products/design-tools/microblaze-v.html), i.e., a version of MicroBlaze using the open [RISC-V](https://riscv.org/about/) instruction set. We do not want to do it in this tutorial. Select Keep Classic MicroBlaze and then click OK.
+At this point, Vivado 2024.1/2025.1 show "Run Block Automation" again (Vivado 2023.1 doesn't do that). Click on it. You will see a proposal to convert MicroBlaze to [MicroBlaze V](https://www.xilinx.com/products/design-tools/microblaze-v.html), i.e., a version of MicroBlaze using the open [RISC-V](https://riscv.org/about/) instruction set. We do not want to do it in this tutorial. Select Keep Classic MicroBlaze and then click OK.
+
+**Do not run Connection Automation yet.**
 
 Let's fine-tune the MicroBlaze configuration before we continue. 
 
-The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in FPGA's local memory is tremendously faster than the DDR3 RAM.
+The performance of the app running on MicroBlaze is totally dependent on the amount of instruction and data cache you can provide to the processor. Make it as big as possible. The cache in the FPGA's local memory is tremendously faster than the DDR3 RAM.
 
 The [testing app](project_files/MicroBlaze_DDR_speed_test_sw) in this repository is a simple memory read speed test. On a 30 kB array (which fits into the cache), it runs 7.24 milliseconds when the caches are disabled. It runs 0.088 milliseconds from the cache (this is not a typo; it does run only 88 microseconds from the cache).
 
@@ -211,13 +213,11 @@ Increase instruction cache to 16 kB and data cache to 32 kB. Set the Line Length
 Go to the next page for Debug configuration, and set "Number of Write Address Watchpoints" and "Number of Read Address Watchpoints" to 1. This will make debugging a bit easier.  
 Finish the configuration wizard by clicking Next.
 
-**Do not run Connection Automation yet.**
-
 > [!NOTE]
 > MicroBlaze Reference Guide [UG984](https://docs.amd.com/r/en-US/ug984-vivado-microblaze-ref) says in [Table 105](https://docs.amd.com/r/en-US/ug984-vivado-microblaze-ref/Maximum-Frequencies), that max. frequency of MicroBlaze on Artix 7 (the chip used on the Arty A7 board) is 267 MHz. However, 267 MHz is probably a best-case scenario with MicroBlaze of minimum complexity (no caches, all options set to minimum).  
 > The 200 MHz I used does not seem to be in an "overclocking range".
 > 
-> However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is negative setup slack on the intra-clock paths of signals within the MicroBlaze.
+> However, after the implementation, you will see a critical warning: "[Timing 38-282] The design failed to meet the timing requirements." The reason is a negative setup slack on the intra-clock paths of signals within the MicroBlaze.
 > 
 > It is generally bad to have a negative setup slack. The design presented here worked well in all my tests, but we are "pushing our luck". I can't say that 200 MHz is a safe frequency.  
 > If you want to be 100% on the safe side, reduce the main clock clk_wiz_0.clk_out1 to 100 MHz. All timing warnings will disappear and all slacks will be positive as they should.
@@ -247,7 +247,7 @@ Now you shall have the following diagram (I moved IPs around for more clarity):
 
 Now we can let the automation do the rest of the work, i.e., connect the clock and reset signals.
 
-"Run Connection Automation" appears on the top of the diagram. Click on it. Select "All Automation", leave default values unchanged (the automation will connect the clock and reset signals based on AXI connections we made), and click OK.
+**"Run Connection Automation"** appears at the top of the diagram. Click on it. Select "All Automation", leave default values unchanged (the automation will connect the clock and reset signals based on AXI connections we made), and click OK.
 
 Another Vivado magic happens, and we now have an almost final diagram.
 
@@ -261,10 +261,10 @@ I moved IPs around for more clarity before I took this final snapshot:
 #### Let me provide a few comments on what we see in the final diagram:
 
 - Everything is clocked by the 200 MHz clock from the Clocking Wizard except the ram_interconnect AXI Master interface, i.e., the interface connecting ram_interconnect and MIG.  
-  This interface must be clocked by the output ui_clk from the MIG (in our case it is ¼ of the DDR3 RAM clock, i.e. 81.25 MHz).
+  This interface must be clocked by the output ui_clk from the MIG (in our case, it is ¼ of the DDR3 RAM clock, i.e., 81.25 MHz).
 
 > [!IMPORTANT]
-> Please understand that in this design I'm "overclocking" AXI GPIO and AXI UART Lite IPs. Documentation for these IPs states that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz. See AXI GPIO Product Guide [PG144](https://docs.xilinx.com/v/u/en-US/pg144-axi-gpio), [Table 2-1](https://docs.amd.com/pdf-viewer?file=https%3A%2F%2Fdocs.amd.com%2Fapi%2Fkhub%2Fdocuments%2F0c0ItRCmnYkoHpcYUCPkEA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.3.29%26filename%3Dpg144-axi-gpio.pdf#G5.306784).  
+> Please understand that in this design, I'm "overclocking" AXI GPIO and AXI UART Lite IPs. Documentation for these IPs states that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz. See AXI GPIO Product Guide [PG144](https://docs.xilinx.com/v/u/en-US/pg144-axi-gpio), [Table 2-1](https://docs.amd.com/pdf-viewer?file=https%3A%2F%2Fdocs.amd.com%2Fapi%2Fkhub%2Fdocuments%2F0c0ItRCmnYkoHpcYUCPkEA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.3.29%26filename%3Dpg144-axi-gpio.pdf#G5.306784).  
 > Nevertheless, by chance, in this case, the AXI GPIO manages to run at 200 MHz. This is absolutely not guaranteed in other designs.
 > 
 > **Warning:** I experienced that **AXI Quad SPI doesn't run well above 120 MHz**. In [another design of mine](https://github.com/viktor-nikolov/ILI9488-Xilinx/tree/main/sample_project_files/MicroBlaze_DDR3_AXI-GPIO_AXI-SPI), which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 120 MHz and MicroBlaze at 160 MHz to get AXI SPI working 100% reliably.   
@@ -274,19 +274,19 @@ I moved IPs around for more clarity before I took this final snapshot:
   The overall throughput is, of course, limited by the slower of the clocks.
 
 - Reset is done by the peripheral_aresetn outputting from the Processor System Reset IP for the MicroBlaze (rst_clk_wiz_0_200M). The Processor System Reset IP ensures that this reset signal is synchronized with the 200 MHz clock.   
-  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the MIG's clock ui_clk. To achieve that the automation created a second Processor System Reset IP (rst_mig_7series_0_81M), which also provides the AXI Slave interface reset signal (aresetn) to the MIG.
+  The only exception is again the ram_interconnect AXI Master interface, whose reset must be synchronized with the MIG's clock ui_clk. To achieve that, the automation created a second Processor System Reset IP (rst_mig_7series_0_81M), which also provides the AXI Slave interface reset signal (aresetn) to the MIG.
 
 ## Generating output
 
 To make sure that nothing was missed, click the Validate Design button in the toolbar of the diagram window (or press F6).  
-You will probably get a message that there are unassigned address segments. Click Yes for auto-assigning them.  
+You will probably get a message that there are unassigned address segments. Click Yes to auto-assign them.  
 I discovered that Vivado will ask you about auto-assigning addresses only if you have the Address Editor open (Windows|Address Editor). If it wasn't open, open the Address Editor and re-run the Validate Design.
 
 HDL Wrapper for the diagram needs to be created: Go to Sources|Design Sources, right-click on "system", select "Create HDL Wrapper", and select "Let Vivado manage wrapper".
 
 Now we create the design outputs: Click "Generate Bitstream" in the Flow Navigator on the left. Synthesis and Implementation will be run automatically before bitstream generation.
 
-There should be no errors. However, expect one critical warning which says "[Timing 38-282] The design failed to meet the timing requirements." which I described in detail in [MicroBlaze](#microblaze) chapter.
+There should be no errors. However, expect one critical warning, which says "[Timing 38-282] The design failed to meet the timing requirements." which I described in detail in the [MicroBlaze](#microblaze) chapter.
 
 Last but not least, we need to export the hardware specification. It is necessary for the development of the SW app for the MicroBlaze in Vitis IDE.  
 Go to File|Export|Export Hardware, select "Include Bitstream".
