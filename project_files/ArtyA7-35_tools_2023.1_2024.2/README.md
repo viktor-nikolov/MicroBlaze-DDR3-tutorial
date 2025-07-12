@@ -46,7 +46,7 @@ It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vi
 #define CACHES_DISABLED
 ```
 
-Compilers do not like loops, which read data and do nothing with it. Such code is discarded by a compiler.  
+Compilers do not like loops that read data but do nothing with it. Such code is discarded by a compiler.  
 In order to remove any dependency on compiler optimization, I wrote the critical piece of the benchmarking code in MicroBlaze assembly.  
 This is an excerpt from [main.cpp](../main.cpp):
 
