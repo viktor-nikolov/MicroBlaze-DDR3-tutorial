@@ -1,6 +1,7 @@
 # Demo HW design of MicroBlaze using DDR3 RAM on Arty A7
 
-The folders [ArtyA7_MicroBlaze_demo_hw_2023.1](ArtyA7_MicroBlaze_demo_hw_2023.1) and [ArtyA7_MicroBlaze_demo_hw_2024.1](ArtyA7_MicroBlaze_demo_hw_2024.1) contain the HW design project created by the [tutorial](../../README.md) in Vivado 2023.1 and Vivado 2024.1.
+The files [ArtyA7_MicroBlaze_demo_hw.2023.1.xpr.zip](ArtyA7_MicroBlaze_demo_hw.2023.1.xpr.zip) and [ArtyA7_MicroBlaze_demo_hw.2024.2.xpr.zip](ArtyA7_MicroBlaze_demo_hw.2024.2.xpr.zip) contain Vivado project archives of the HW designs created by the [tutorial](../../README.md) in Vivado 2023.1 and Vivado 2024.2.  
+To use the archives, expand the content of the .zip file to a folder on your PC and open the file ArtyA7_MicroBlaze_demo_hw.xpr by Vivado.
 
 Make sure you have the Digilent board files installed before you open the HW project in Vivado. In the absence of the Arty A7 board file, Vivado will break the configuration of the MIG.  
 [This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install the board files.
