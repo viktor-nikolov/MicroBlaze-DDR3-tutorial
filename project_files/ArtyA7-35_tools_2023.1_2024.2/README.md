@@ -29,7 +29,7 @@ It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vi
 > It drives the Arty A7 pin marked A0 high before the testing loop is executed. The pin is driven low after the loop finishes. Testing loops are repeated indefinitely.  
 > You, therefore, need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
 > 
-> The amount of data read from memory in the testing loop is defined by the macro BUFF_WORDS (i.e., number of 32-bit words) defined in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp). The value of the macro must be divisible by 4.
+> The amount of data read from memory in the testing loop is defined by the macro BUFF_WORDS (i.e., number of 32-bit words) defined in [main.cpp](../main.cpp). The value of the macro must be divisible by 4.
 
 > [!IMPORTANT]
 > **The app published in this repository was compiled for Arty A7-35. It won't load on Arty A7-100.**  
@@ -39,7 +39,7 @@ It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vi
 
 > [!TIP]
 > The app will, by default, run with instruction and data cache disabled, in order to measure DDR3 SDRAM read speed.  
-> To do the measurement with caches enabled, comment the following line in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
+> To do the measurement with caches enabled, comment the following line in [main.cpp](../main.cpp):
 
 ```c
 //Comment out this macro in order to run the test with instruction and data cache enabled
@@ -48,7 +48,7 @@ It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vi
 
 Compilers do not like loops, which read data and do nothing with it. Such code is discarded by a compiler.  
 In order to remove any dependency on compiler optimization, I wrote the critical piece of the benchmarking code in MicroBlaze assembly.  
-This is an excerpt from [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
+This is an excerpt from [main.cpp](../main.cpp):
 
 ```c
 volatile uint32_t buff[BUFF_WORDS];
