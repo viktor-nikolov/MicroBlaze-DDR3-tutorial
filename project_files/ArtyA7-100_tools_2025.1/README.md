@@ -11,6 +11,11 @@ Make sure you have the Digilent board files installed before you open the HW pro
 The file [MicroBlaze_DDR_speed_test_sw_2025.1.archive.zip](MicroBlaze_DDR_speed_test_sw_2025.1.archive.zip) is a Vitis 2025.1 project archive, which contains the benchmarking app running on the HW design created by the tutorial.  
 To use the archive, open an empty workspace in Vitis 2025.1, select File|Import, and provide the path to the project archive in the field "Import from Archive".
 
+Please do not be confused by error highlighting in Vitis 2025.1 IDE. It sometimes highlights "errors" that do not exist.  
+On the screenshot below, only warnings about inactive cache are valid. I deliberately raised them using `#warning` statements. No other warnings or errors will appear during compilation.
+
+<img title="" src="../../pictures/VitisUnified_problems.png" alt="" width="550">
+
 > [!IMPORTANT]
 > You need an oscilloscope in order to make use of the app.  
 > The app provides no output to the console.
