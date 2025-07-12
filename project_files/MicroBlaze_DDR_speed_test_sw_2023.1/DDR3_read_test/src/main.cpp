@@ -19,7 +19,7 @@ is also optimized for speed.
 
 BSD 2-Clause License
 
-Copyright (c) 2023, Viktor Nikolov
+Copyright (c) 2025, Viktor Nikolov
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -65,10 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //Mask of the GPIO pin, which we are using for measuring performance of the memory reading code
 //by an oscilloscope.
 #define GPIO_PIN_MASK   0x01 //bit 0
-
-#define GPIO_DEVICE_ID  XPAR_GPIO_0_DEVICE_ID //XPAR_GPIO_0_DEVICE_ID comes from the xparameters.h, which is
-                                              //generated based on the HW configuration.
-
+ 
 static XGpio GpioInstance;
 volatile uint32_t buff[BUFF_WORDS];
 
@@ -87,10 +84,15 @@ int initialize()
 	#warning "Data cache is not active!"
 #endif
 
-	/************ Initialize GPI ************/
+	/************ Initialize GPIO ************/
 	int Status;
 
-	Status = XGpio_Initialize(&GpioInstance, GPIO_DEVICE_ID);
+#ifdef SDT // Is System Device Tree used? (I.e., are we using Vitis Unified?)
+	// Constants XPAR_* come from the xparameters.h, which is generated based on the HW configuration.
+	Status = XGpio_Initialize(&GpioInstance, XPAR_AXI_GPIO_0_BASEADDR);
+#else
+	Status = XGpio_Initialize(&GpioInstance, XPAR_GPIO_0_DEVICE_ID);
+#endif
 	if (Status != XST_SUCCESS) {
 		xil_printf("Gpio Initialization failed\r\n");
 		return XST_FAILURE;
@@ -147,34 +149,34 @@ int main() {
 			: "m" (buff), "i" (BUFF_WORDS/4)    //input operands
 			: "r0","r10","r11","r12","r13","cc" //clobbered registers + CPU condition codes
 		);
-        /* Note regarding instructions [1] and [2]:
-         *
-         * I assumed that [1] should read "addi r10, r0, %0". However this syntax wouldn't compile.
-         * The "addi r10, %0" compiles for example to the following two instructions
-         *     imm     -32768  //== 0x8000
-         *     addi    r10, r0 , 6344
-         * which load address 0x800018c8 into r10.
-         *
-         * [2] compiles into one or two machine instructions depending on the value of sizeof(buff).
-         * For sizeof(buff) <= 65535 one simple addi is generated.
-         * For sizeof(buff) > 65535 instruction imm is added.
-         * For example sizeof(buff)==65537 generates following two machine instructions
-         *     imm     1
-         *     addi    r11, r0, 1
-         * which load 0x00010001 into r11.
-         */
+		/* Note regarding instructions [1] and [2]:
+		 *
+		 * I assumed that [1] should read "addi r10, r0, %0". However this syntax wouldn't compile.
+		 * The "addi r10, %0" compiles for example to the following two instructions
+		 *     imm     -32768  //== 0x8000
+		 *     addi    r10, r0 , 6344
+		 * which load address 0x800018c8 into r10.
+		 *
+		 * [2] compiles into one or two machine instructions depending on the value of sizeof(buff).
+		 * For sizeof(buff) <= 65535 one simple addi is generated.
+		 * For sizeof(buff) > 65535 instruction imm is added.
+		 * For example sizeof(buff)==65537 generates following two machine instructions
+		 *     imm     1
+		 *     addi    r11, r0, 1
+		 * which load 0x00010001 into r11.
+		 */
 
-    	/* The pin goes low */
-    	XGpio_DiscreteClear(&GpioInstance, 1 /*Channel*/, GPIO_PIN_MASK /*Mask*/ );
+		/* The pin goes low */
+		XGpio_DiscreteClear(&GpioInstance, 1 /*Channel*/, GPIO_PIN_MASK /*Mask*/ );
 
-    	/* Following applies when an AXI Timer is not part of the HW design (it is NOT part of
-    	 * my MicroBlaze tutorial):
-    	 * The call usleep(10) will sleep for 10 us only when instruction and data cache is enabled.
-    	 * It will take longer with the caches disabled.
-    	 * In absence of AXI Timer the usleep is implemented by running an assembly code of known
-    	 * duration when ran from the cache.
-    	 * See function sleep_common in ...\bsp\microblaze_0\libsrc\standalone_v8_1\src\microblaze_sleep.c
-    	 */
-    	usleep(10);
-    }
+		/* Following applies when an AXI Timer is not part of the HW design (it is NOT part of
+		 * my MicroBlaze tutorial):
+		 * The call usleep(10) will sleep for 10 us only when instruction and data cache is enabled.
+		 * It will take longer with the caches disabled.
+		 * In absence of AXI Timer the usleep is implemented by running an assembly code of known
+		 * duration when ran from the cache.
+		 * See function sleep_common in ...\bsp\microblaze_0\libsrc\standalone_v8_1\src\microblaze_sleep.c
+		 */
+		usleep(10);
+	}
 }
