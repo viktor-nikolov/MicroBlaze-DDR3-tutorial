@@ -1,6 +1,9 @@
 # Demo HW design of MicroBlaze using DDR3 RAM on Arty A7
 
-The folders [ArtyA7_MicroBlaze_demo_hw_2023.1](ArtyA7_MicroBlaze_demo_hw_2023.1) and [ArtyA7_MicroBlaze_demo_hw_2024.1](ArtyA7_MicroBlaze_demo_hw_2024.1) contain the HW design project created by the [tutorial](../README.md) in Vivado 2023.1 and Vivado 2024.1
+The folders [ArtyA7_MicroBlaze_demo_hw_2023.1](ArtyA7_MicroBlaze_demo_hw_2023.1) and [ArtyA7_MicroBlaze_demo_hw_2024.1](ArtyA7_MicroBlaze_demo_hw_2024.1) contain the HW design project created by the [tutorial](../README.md) in Vivado 2023.1 and Vivado 2024.1.
+
+Make sure you have the Digilent board files installed before you open the HW project in Vivado. In the absence of Arty A7 board file, the Vivado will break configuration of the MIG.  
+[This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install the board files.
 
 I tested the design on Arty A7-35 (which is no longer in production). I expect it to work also on [Arty A7-100](https://digilent.com/shop/arty-a7-100t-artix-7-fpga-development-board/).
 
@@ -15,7 +18,7 @@ The folder [MicroBlaze_DDR_speed_test_sw_2023.1](MicroBlaze_DDR_speed_test_sw_20
 
 You can also open this workspace in Vitis Classic 2024.1.  
 It will ask you if you want to update it to version 2024.1. After the update, the app will compile and work the very same way as it does in Vitis 2023.1.  
-It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vitis Unified IDE). The Vitis Unified 2024.1 doesn't read correctly MicroBlaze parameters from the XSA file.
+It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vitis Unified IDE). The Vitis Unified 2024.1 doesn't read the MicroBlaze parameters correctly from the XSA file.
 
 > [!IMPORTANT]
 > You need an oscilloscope in order to make use of the app.  
@@ -24,7 +27,7 @@ It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vi
 > It drives the Arty A7 pin marked A0 high before the testing loop is executed. The pin is driven low after the loop finishes. Testing loops are repeated indefinitely.  
 > You, therefore, need to measure the duration of a positive pulse created on the pin A0 down to tens of microseconds. Even a cheap scope should be able to do that.
 > 
-> The amount of data read from memory in the testing loop is defined by the macro BUFF_WORDS (i.e., number of 32b words) defined in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp). The value of the macro must be divisible by 4.
+> The amount of data read from memory in the testing loop is defined by the macro BUFF_WORDS (i.e., number of 32-bit words) defined in [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp). The value of the macro must be divisible by 4.
 
 > [!IMPORTANT]
 > **The app published in this repository was compiled for Arty A7-35. It won't load on Arty A7-100.**  
@@ -41,8 +44,8 @@ It's impossible to correctly build this app in Vitis 2024.1 (i.e., in the new Vi
 #define CACHES_DISABLED
 ```
 
-Compilers do not like loops, which read data and do nothing with them. Such code is discarded by a compiler.  
-In order to remove any dependency on compiler optimization I wrote the critical piece of the benchmarking code in MicroBlaze assembly.  
+Compilers do not like loops, which read data and do nothing with it. Such code is discarded by a compiler.  
+In order to remove any dependency on compiler optimization, I wrote the critical piece of the benchmarking code in MicroBlaze assembly.  
 This is an excerpt from [main.cpp](MicroBlaze_DDR_speed_test_sw/DDR3_read_test/src/main.cpp):
 
 ```c
