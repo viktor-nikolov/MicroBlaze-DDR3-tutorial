@@ -228,7 +228,8 @@ Now, we create two AXI Interconnects. One will connect the MicroBlaze with DDR3 
 
 > [!TIP]
 > I'm aware that if we click "Run Connection Automation" at this moment, the automation will create the interconnects for us.  
-> The problem is that automation will create [AXI SmartConnect](https://www.xilinx.com/products/intellectual-property/smartconnect.html) between the MicroBlaze and the DDR3 RAM. In my testing of DDR3 RAM read speed, AXI SmartConnect resulted in 10% slower performance compared to the "old fashioned" AXI Interconnect (interconnect type was the only design change between the tests).  
+> The problem is that automation will create [AXI SmartConnect](https://www.xilinx.com/products/intellectual-property/smartconnect.html) between the MicroBlaze and the DDR3 RAM. In my testing of DDR3 RAM read speed using the app provided in this repository, use of AXI SmartConnect resulted in 10% slower performance compared to the "old fashioned" AXI Interconnect (interconnect type was the only design change between the tests).  
+> Surprisingly, in the latest 2025.1 version of the Xilinx tools, the performance penalty for using AXI SmartConnect was even higher: 14%.  
 > I'm sure AXI SmartConnect has some advantages. However, in this particular design on this particular board, the AXI Interconnect is faster.
 
 Search for "interconnect" in the IP Catalog and drag AXI Interconnect twice to the diagram.  
