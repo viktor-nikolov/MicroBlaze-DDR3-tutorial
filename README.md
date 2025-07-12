@@ -1,6 +1,6 @@
 # Tutorial: MicroBlaze with DDR3 RAM on Arty A7
 
-This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1, Vivado 2024.1, or Vivado 2025.1.
+This tutorial describes how to do a HW design of [MicroBlaze Soft Processor](https://www.xilinx.com/products/design-tools/microblaze.html) using DDR3 RAM on the [Digilent Arty A7](https://digilent.com/reference/programmable-logic/arty-a7/start) FPGA development board in Vivado 2023.1, Vivado 2024.1/.2, or Vivado 2025.1.
 
 The same steps and design should be applicable to any Digilent board with a 100 MHz crystal oscillator and a DDR interface, including [Nexys A7](https://digilent.com/shop/nexys-a7-fpga-trainer-board-recommended-for-ece-curriculum/), [Arty S7](https://digilent.com/shop/arty-s7-spartan-7-fpga-development-board/), [Nexys Video](https://digilent.com/shop/nexys-video-artix-7-fpga-trainer-board-for-multimedia-applications/) and [USB104 A7](https://digilent.com/shop/usb104-a7-artix-7-fpga-development-board-with-syzygy-compatible-expansion/).
 
