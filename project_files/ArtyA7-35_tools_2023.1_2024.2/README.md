@@ -3,6 +3,14 @@
 The files [ArtyA7_MicroBlaze_demo_hw.2023.1.xpr.zip](ArtyA7_MicroBlaze_demo_hw.2023.1.xpr.zip) and [ArtyA7_MicroBlaze_demo_hw.2024.2.xpr.zip](ArtyA7_MicroBlaze_demo_hw.2024.2.xpr.zip) contain Vivado project archives of the HW designs created by the [tutorial](../../README.md) in Vivado 2023.1 and Vivado 2024.2.  
 To use the archives, expand the content of the .zip file to a folder on your PC and open the file ArtyA7_MicroBlaze_demo_hw.xpr by Vivado.
 
+Alternatively, you can use the content of [ArtyA7_MicroBlaze_demo_hw.2023.1_TCL_script.zip](https://github.com/viktor-nikolov/MicroBlaze-DDR3-tutorial/blob/main/project_files/ArtyA7-35_tools_2023.1_2024.2/ArtyA7_MicroBlaze_demo_hw.2023.1_TCL_script.zip) to recreate the project using the TCL script. Extract the content of the zip archive to a folder and run the following command:
+
+```
+vivado -mode batch -source ArtyA7_MicroBlaze_demo_hw.tcl
+```
+
+It will create a folder `ArtyA7_MicroBlaze_demo_hw` containing the project, which you can open interactively in Vivado.
+
 Make sure you have the Digilent board files installed before you open the HW project in Vivado. In the absence of the Arty A7 board file, Vivado will break the configuration of the MIG.  
 [This article](https://digilent.com/reference/programmable-logic/guides/install-board-files) provides instructions on how to install the board files.
 
