@@ -300,14 +300,18 @@ See the directory's [readme file](project_files/README.md) for details.
 
 ## Differences from the Arty A7 documentation
 
-Please note that in this HW design, I, on purpose, deviated from [Arty A7 DDR3 documentation](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) and from [this tutorial](https://digilent.com/reference/learn/programmable-logic/tutorials/arty-getting-started-with-microblaze-servers/start).
+Please note that in this HW design, I deliberately deviated from the [Arty A7 DDR3 documentation](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) and from [this tutorial](https://digilent.com/reference/learn/programmable-logic/tutorials/arty-getting-started-with-microblaze-servers/start).
 
 Memory Interface Generator (MIG) input System Clock (sys_clk_i) is driven by an external 100 MHz oscillator in my design.
-The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) recommends a 166.67 MHz input clock, but a clock of such frequency can be obtained only internally on the FPGA chip by a Clocking Wizard. However, the MIG User Guide says, "The input system clock cannot be generated internally". See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Input-Clock-Guidelines?tocId=D73WD16GVW5oE_XpfPVH4g), page 188 in the PDF version. It's because driving it from an [MMCM](https://www.xilinx.com/products/intellectual-property/mmcm_module.html) of a Clocking Wizzard might introduce too much jitter.
+The Arty A7 [Reference Manual](https://digilent.com/reference/programmable-logic/arty-a7/reference-manual#ddr3l) recommends a 166.67 MHz input clock, but a clock of such frequency can be obtained only internally on the FPGA chip by a Clocking Wizard. However, the MIG User Guide states, "The input system clock cannot be generated internally". See [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Input-Clock-Guidelines?tocId=D73WD16GVW5oE_XpfPVH4g), page 188 in the PDF version.  
 
-A design with a 166.67 MHz internally generated MIG input System Clock may work (it worked during my tests). But it is not guaranteed to work, especially when the FPGA design gets more complex.
+My understanding is that you should use an external clock due to concerns about the clock jitter.  
+The thing is that MIG uses its own [PLL](https://en.wikipedia.org/wiki/Phase-locked_loop) and [MMCM](https://www.xilinx.com/products/intellectual-property/mmcm_module.html) to generate various clocks. It's like MIG has a "Clocking Wizard" inside.  
+Feeding MMCM from the MMCM of another Clocking Wizard increases clock jitter. Higher clock jitter is bad for MIG operation. 
+
+A design with a 166.67 MHz internally generated MIG input System Clock may work despite increased jitter (it worked during my tests). But it is not guaranteed to work, especially when the FPGA design gets more complex.
 
 I, therefore, did the design "by the UG586 book" and used the external 100 MHz oscillator of Arty A7.  
-Having the MIG input System Clock 100 MHz instead of 166.67 MHz necessitates setting a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. Technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Clocking-Architecture?tocId=vKZi3JogyCep57tDVzAT3Q), page 103 in the PDF version.
+Having the MIG input System Clock set to 100 MHz instead of 166.67 MHz requires a longer DDR3 clock period of 3077 ps (325 MHz) instead of 3000 ps (333.3 MHz). This is because only certain ratios between the input System Clock and the DDR3 clock are supported. The technical reasons for this are described in [UG586](https://docs.amd.com/r/en-US/ug586_7Series_MIS/Clocking-Architecture?tocId=vKZi3JogyCep57tDVzAT3Q), page 103 in the PDF version.
 
 The performance difference of the slightly lower 325 MHz DDR3 clock is negligible. With instruction and data caches disabled, I measured memory read performance only 0.5% lower compared to the 333.3 MHz DDR3 clock. With caches enabled, which should be the standard setup, there is virtually no performance difference.
