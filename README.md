@@ -265,10 +265,13 @@ I moved IPs around for more clarity before I took this final snapshot:
   This interface must be clocked by the output ui_clk from the MIG (in our case, it is ¼ of the DDR3 RAM clock, i.e., 81.25 MHz).
 
 > [!IMPORTANT]
-> Please understand that in this design, I'm "overclocking" AXI GPIO and AXI UART Lite IPs. Documentation for these IPs states that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz. See AXI GPIO Product Guide [PG144](https://docs.xilinx.com/v/u/en-US/pg144-axi-gpio), [Table 2-1](https://docs.amd.com/pdf-viewer?file=https%3A%2F%2Fdocs.amd.com%2Fapi%2Fkhub%2Fdocuments%2F0c0ItRCmnYkoHpcYUCPkEA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D4.3.29%26filename%3Dpg144-axi-gpio.pdf#G5.306784).  
-> Nevertheless, by chance, in this case, the AXI GPIO manages to run at 200 MHz. This is absolutely not guaranteed in other designs.
-> 
-> **Warning:** I experienced that **AXI Quad SPI doesn't run well above 120 MHz**. In [another design of mine](https://github.com/viktor-nikolov/ILI9488-Xilinx/tree/main/sample_project_files/MicroBlaze_DDR3_AXI-GPIO_AXI-SPI), which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 120 MHz and MicroBlaze at 160 MHz to get AXI SPI working 100% reliably.   
+>
+> Based on AXI UART Lite IP documentation, it seems that I'm "overclocking" this IP by running it at 200 MHz. The Product Guide [PG142](https://docs.amd.com/v/u/en-US/pg142-axi-uartlite) states in [Table 2-1](https://docs.amd.com/pdf-viewer?file=https%3A%2F%2Fdocs.amd.com%2Fapi%2Fkhub%2Fdocuments%2FdB1MAeh~uLG7FE62a5_QbA%2Fcontent%3FFt-Calling-App%3Dft%252Fturnkey-portal%26Ft-Calling-App-Version%3D5.2.51%26filename%3Dpg142-axi-uartlite.pdf#G5.309065) that on the slowest speed grade Artix-7 (which is the one used on the Arty A7 board), the maximum AXI clock is 120 MHz.  
+> Nevertheless, in my testing, the UART output worked fine.
+>
+> (I'm not worried about AXI GPIO IP. Information on performance characteristics in the [Product Specification](https://docs.amd.com/r/en-US/pg144-axi-gpio/Product-Specification) chapter of [PG144](https://docs.amd.com/r/en-US/pg144-axi-gpio) suggests that this IP should handle 200 MHz, and it does so in my testing.)
+>
+> **Warning:** I experienced that **AXI Quad SPI doesn't run well above 120 MHz**. In [another design of mine](https://github.com/viktor-nikolov/ILI9488-Xilinx/tree/main/sample_project_files/MicroBlaze_DDR3_AXI-GPIO_AXI-SPI), which uses AXI SPI, I had to clock the Master AXI interfaces of perif_interconnect at 120 MHz and the MicroBlaze at 160 MHz to get AXI SPI working 100% reliably.   
 > As always, "the golden rule" applies here: If things don't work, lower the frequency.
 
 - It's OK that the ram_interconnect has the Master interface running on 81.25 MHz and Slave interfaces running on 200 MHz. One of the AXI Interconnect features is providing a bridge over two different clock domains.  
