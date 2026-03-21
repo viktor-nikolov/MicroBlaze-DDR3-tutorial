@@ -141,7 +141,7 @@ int main() {
 			"lwi  r12, r10, 0    \n\t"  //load 32b word from address r10 to r12
 			"lwi  r12, r10, 4    \n\t"  //load 32b word from address r10+4 to r12
 			"lwi  r12, r10, 8    \n\t"  //load 32b word from address r10+8 to r12
-			"lwi  r12, r10, 12   \n\t"  //load 32b word from address r10+14 to r12
+			"lwi  r12, r10, 12   \n\t"  //load 32b word from address r10+12 to r12
 			"addi r10, r10, 4*4  \n\t"  //increment address in r10 to next 4 words
 			"add  r11, r11, r13  \n\t"  //decrement counter in r11 (r13 == -1)
 			"bgti r11, 1b        \n\t"  //if r11 > 0 then branch backward to label 1
